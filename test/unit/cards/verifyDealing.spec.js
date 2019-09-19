@@ -6,7 +6,7 @@ chai.should();
 
 // import the functions
 const {getScore} = require("../../../src/includes/scripts/helper/blackjack");
-const {buildADeckOfCards, shuffleADeckOfCards, buildAndShuffleADeckOfCards, deal, getHandString, checkScores, randomCardNumber, dealRandom} = require("../../../src/includes/scripts/helper/cards");
+const {buildADeckOfCards, shuffleADeckOfCards, buildAndShuffleADeckOfCards, deal, getHandString, checkScores, randomCardNumber, dealRandomCard} = require("../../../src/includes/scripts/helper/cards");
   
   describe("VERIFY THE DEALING FUNCTIONS", function(){
     
@@ -65,7 +65,7 @@ const {buildADeckOfCards, shuffleADeckOfCards, buildAndShuffleADeckOfCards, deal
       let deck = buildADeckOfCards();   
 
       // Deal one
-      let dealt = dealRandom(playersHand, deck);
+      let dealt = dealRandomCard(playersHand, deck);
       let remainingDeck = dealt.deckOfCards;
 
       it("A deck has 51 cards after a card has been dealt", function(){remainingDeck.length.should.equal(51);})
@@ -83,7 +83,7 @@ const {buildADeckOfCards, shuffleADeckOfCards, buildAndShuffleADeckOfCards, deal
                     { suit: 'Diamonds', rank: 'Two', value: 2 }];  
 
       // Deal one
-      let dealt = dealRandom(playersHand, deck);
+      let dealt = dealRandomCard(playersHand, deck);
       let remainingDeck = dealt.deckOfCards;
 
       it("A deck has 51 cards after a card has been dealt", function(){remainingDeck.length.should.equal(1);})

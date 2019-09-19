@@ -59,9 +59,9 @@ dealButton.addEventListener("click", function(){
   
   // Opening deal
   deck = buildAndShuffleADeckOfCards();
-  deal(playersCards, deck);
-  deal(playersCards, deck);
-  deal(dealersCards, deck);
+  dealRandomCard(playersCards, deck);
+  dealRandomCard(playersCards, deck);
+  dealRandomCard(dealersCards, deck);
   
   // Update scores and output
   checkGameStatus(false);
@@ -73,7 +73,7 @@ dealButton.addEventListener("click", function(){
 
 // Player adds cards
 twistButton.addEventListener("click", function(){
-  deal(playersCards, deck);
+  dealRandomCard(playersCards, deck);
   
   // Update results and output
   checkGameStatus(false);
@@ -88,7 +88,7 @@ stickButton.addEventListener("click", function(){
   
   // Dealer plays until there's a winner...
   do  {
-    deal(dealersCards, deck);
+    dealRandomCard(dealersCards, deck);
     status = checkGameStatus(true);
     outputDealersScore();
   }

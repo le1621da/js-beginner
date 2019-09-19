@@ -18,7 +18,7 @@ const perform = new SeleniumWebdriverInteractions(driver, until, promise);
 const {getScores, getState01, getState02, getState03, getState04, getState05, checkArrayValuesAreAllTrue} = require("../../helper/seleniumBlackjackFunctions");
 
 // Initialise game variables
-const LANDING_PAGE = "file:///Users/Lee/workspace/beginner-js-card-games/src/blackjack.html";
+const LANDING_PAGE = "file:///Users/Lee/workspace/beginner-js/src/blackjack.html";
 var state01;
 var state02;
 var state03;
