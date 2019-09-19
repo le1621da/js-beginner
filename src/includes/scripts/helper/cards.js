@@ -57,12 +57,6 @@ function randomCardNumber(deck){
   return cardIndex;
 }
 
-
-function deal(hand, deckOfCards){
-  hand.push(deckOfCards.shift());    
-  return {deckOfCards, hand};
-}
-
 function dealRandomCard(hand, deckOfCards){
   let cardIndex = randomCardNumber(deckOfCards);
   hand.push(deckOfCards[cardIndex]);
@@ -118,4 +112,4 @@ function printDeck(deck){
   }); 
 }
   
-module.exports = {buildADeckOfCards, shuffleADeckOfCards, buildAndShuffleADeckOfCards, deal, getHandString, checkScores, randomCardNumber, dealRandomCard};
+module.exports = {buildADeckOfCards, shuffleADeckOfCards, buildAndShuffleADeckOfCards, getHandString, checkScores, randomCardNumber, dealRandomCard};
