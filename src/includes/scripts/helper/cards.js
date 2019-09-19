@@ -52,10 +52,22 @@ function buildAndShuffleADeckOfCards(){
   return shuffleADeckOfCards(buildADeckOfCards());
 }
 
+function randomCardNumber(deck){
+  let cardIndex = Math.floor(Math.random() * deck.length);
+  return cardIndex;
+}
+
 
 function deal(hand, deckOfCards){
   hand.push(deckOfCards.shift());    
   return {deckOfCards, hand};
+}
+
+function dealRandom(hand, deckOfCards){
+  let cardIndex = randomCardNumber(deckOfCards);
+  hand.push(deckOfCards[cardIndex]);
+  dealtCard = deckOfCards.splice(cardIndex, 1);
+  return {deckOfCards, hand}
 }
 
 
@@ -106,4 +118,4 @@ function printDeck(deck){
   }); 
 }
   
-module.exports = {buildADeckOfCards, shuffleADeckOfCards, buildAndShuffleADeckOfCards, deal, getHandString, checkScores};
+module.exports = {buildADeckOfCards, shuffleADeckOfCards, buildAndShuffleADeckOfCards, deal, getHandString, checkScores, randomCardNumber, dealRandom};
