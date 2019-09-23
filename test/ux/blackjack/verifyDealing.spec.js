@@ -13,34 +13,20 @@ const driver = new webdriver.Builder()
   .build();
 
 
-// import Selenium helpers
-const SeleniumWebdriverInteractions = require("../../helper/seleniumWebdriverInteractions.js");
+// import and initialise Selenium helpers
+const {setGameStateVariables, blackjackLandingPage, getPageStates, checkArrayValuesAreAllTrue} = require("../../helper/functions/seleniumBlackjackFunctions");
+const SeleniumWebdriverInteractions = require("../../helper/classes/seleniumWebdriverInteractions.js");
 const perform = new SeleniumWebdriverInteractions(driver, until, promise);
-const {getScores, getState01, getState02, getState03, getState04, getState05, checkArrayValuesAreAllTrue} = require("../../helper/seleniumBlackjackFunctions");
+
+// local variables
+var states = [];
 
 
 // Initialise game variables
-const LANDING_PAGE = "file:///Users/Lee/workspace/beginner-js/src/blackjack.html";
-var state01;
-var state02;
-var state03;
-var state04;
-var state05;
 var gameScores;
 var playersScore;
 var playerHasWon = false;
 
-// Set game variables
-async function setGameStateVariables() {
-  state01 = await getState01(driver);
-  state02 = await getState02(driver);
-  state03 = await getState03(driver);
-  state04 = await getState04(driver);
-  state05 = await getState05(driver);
-  gameScores = await getScores(driver);
-  playersScore = parseInt(gameScores[0], 10);
-  result = "";
-}
 
 async function setPlayerHasWon() {
   if (playersScore === 21) playerHasWon = true;
@@ -50,13 +36,9 @@ async function setPlayerHasWon() {
 
 // Tests
 describe("VERIFY THE STATE OF THE GAME AFTER THE DEAL", function(){
-  before(function(){
-    return perform.loadPage(LANDING_PAGE);
-  })
+  before(function(){return perform.loadPage(blackjackLandingPage);})
 
-  after(function(){
-    driver.quit();
-  })
+  after(function(){driver.quit();})
 
   describe("01: Start a new game", function(){
     it("The new game button has been clicked", function(){return perform.clickButton("new_game_button").should.eventually.be.true;});
@@ -68,19 +50,19 @@ describe("VERIFY THE STATE OF THE GAME AFTER THE DEAL", function(){
 
   describe("03: Fetch results...", function(){
     it("Local variables have been updated", async() => {
-      await setGameStateVariables();
-      await setPlayerHasWon();
+      await setGameStateVariables(driver);
+      states = getPageStates();
     })
   })
 
   describe("04: Check the state of the page after the deal", function() {
-    it("The page is NOT in State 1", function(){checkArrayValuesAreAllTrue(state01).should.be.false;})
-    it("The page is NOT in State 2", function(){checkArrayValuesAreAllTrue(state02).should.be.false;})
-    it("IF player's score < 21 THEN the page is in State 3", function(){if (!playerHasWon) checkArrayValuesAreAllTrue(state03).should.be.true;})
-    it("IF player's score < 21 THEN the page is NOT in State 4", function(){if (!playerHasWon) checkArrayValuesAreAllTrue(state04).should.be.false;})
-    it("IF player's score = 21 THEN the page is NOT in State 3", function(){if (playerHasWon) checkArrayValuesAreAllTrue(state03).should.be.false;})
-    it("IF player's score = 21 THEN the page is in State 4", function(){if (playerHasWon) checkArrayValuesAreAllTrue(state04).should.be.true;})
-    it("The page is NOT in State 5", function(){checkArrayValuesAreAllTrue(state05).should.be.false;})
+    it("The page is NOT in State 0", function(){checkArrayValuesAreAllTrue(states[0]).should.be.false;})
+    it("The page is NOT in State 1", function(){checkArrayValuesAreAllTrue(states[1]).should.be.false;})
+    it("IF player's score < 21 THEN the page is in State 2", function(){if (!playerHasWon) checkArrayValuesAreAllTrue(states[2]).should.be.true;})
+    it("IF player's score < 21 THEN the page is NOT in State 3", function(){if (!playerHasWon) checkArrayValuesAreAllTrue(states[3]).should.be.false;})
+    it("IF player's score = 21 THEN the page is NOT in State 2", function(){if (playerHasWon) checkArrayValuesAreAllTrue(states[2]).should.be.false;})
+    it("IF player's score = 21 THEN the page is in State 3", function(){if (playerHasWon) checkArrayValuesAreAllTrue(states[3]).should.be.true;})
+    it("The page is NOT in State 4", function(){checkArrayValuesAreAllTrue(states[4]).should.be.false;})
   })
 
   describe("05: Check the text values after the deal", function(){

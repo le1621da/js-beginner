@@ -13,63 +13,27 @@ const driver = new webdriver.Builder()
   .build();
 
 
-// import Selenium helpers
-const SeleniumWebdriverInteractions = require("../../helper/seleniumWebdriverInteractions.js");
+// import and initialise Selenium helpers
+const {blackjackLandingPage, playerHasWon, dealerHasWon, checkArrayValuesAreAllTrue}  = require("../../helper/functions/seleniumBlackjackFunctions");
+var {getPageStates} = require("../../helper/functions/seleniumBlackjackFunctions");
+var {setGameStateVariables, setPlayerHasWon, setDealerHasWon} = require("../../helper/functions/seleniumBlackjackFunctions");
+const SeleniumWebdriverInteractions = require("../../helper/classes/seleniumWebdriverInteractions.js");
 const perform = new SeleniumWebdriverInteractions(driver, until, promise);
-const {getScores, getState01, getState02, getState03, getState04, getState05, checkArrayValuesAreAllTrue} = require("../../helper/seleniumBlackjackFunctions");
 
-
-// Initialise game variables
-const LANDING_PAGE = "file:///Users/Lee/workspace/beginner-js/src/blackjack.html";
-var state01;
-var state02;
-var state03;
-var state04;
-var state05;
-var gameScores;
-var playersScore;
-var dealersScore;
-var playerHasStuck = false;
-var playerHasWon = false;
-var dealerHasWon = false;
+// local variables
+var states = [];
+var playerHasPlayed = false;
 
 // Set game variables
-async function setGameStateVariables() {
-  state01 = await getState01(driver);
-  state02 = await getState02(driver);
-  state03 = await getState03(driver);
-  state04 = await getState04(driver);
-  state05 = await getState05(driver);
-  gameScores = await getScores(driver);
-  playersScore = parseInt(gameScores[0], 10);
-  dealersScore = parseInt(gameScores[1], 10);
-  result = "";
+async function setplayerHasPlayed() {
+  playerHasPlayed = false;
 }
-
-async function setPlayerHasStuck() {
-  playerHasStuck = true;
-}
-
-async function setPlayerHasWon() {
-  if (playersScore === 21 || (dealersScore > 21)) playerHasWon = true;
-  if (playerHasStuck && (playersScore > dealersScore)) playerHasWon = true;
-}
-
-async function setDealerHasWon() {
-  if (playersScore > 21) dealerHasWon = true;
-  if (playerHasStuck && (dealersScore < 21) && (dealersScore > playersScore)) dealerHasWon = true;
-}
-
 
 // Tests
 describe("VERIFY THE STATE OF THE GAME AFTER THE PLAYER STICKS", function(){
-  before(function(){
-    return perform.loadPage(LANDING_PAGE);
-  })
+  before(function(){return perform.loadPage(blackjackLandingPage);})
 
-  after(function(){
-    driver.quit();
-  })
+  after(function(){driver.quit();})
 
   describe("01: Start a new game", function(){
     it("The new game button has been clicked", function(){return perform.clickButton("new_game_button").should.eventually.be.true;});
@@ -83,9 +47,10 @@ describe("VERIFY THE STATE OF THE GAME AFTER THE PLAYER STICKS", function(){
 
   describe("03: Fetch results...", function(){
     it("Local variables have been updated", async() => {
-      await setGameStateVariables();
-      await setPlayerHasWon();
-      await setDealerHasWon();
+      await setGameStateVariables(driver);
+      states = getPageStates();
+      await setPlayerHasWon(playerHasPlayed);
+      await setDealerHasWon(playerHasPlayed);
     })
   })
 
@@ -98,20 +63,21 @@ describe("VERIFY THE STATE OF THE GAME AFTER THE PLAYER STICKS", function(){
 
   describe("05: Fetch results...", function(){
     it("Local variables have been updated", async() => {
-      await setPlayerHasStuck();
-      await setGameStateVariables();
-      await setPlayerHasWon();
-      await setDealerHasWon();
+      await setplayerHasPlayed();
+      await setGameStateVariables(driver);
+      states = getPageStates();
+      await setPlayerHasWon(playerHasPlayed);
+      await setDealerHasWon(playerHasPlayed);
     })
   })
 
 
   describe("06: Check the state of the page after the player hits stick", function() {
-    it("The page is NOT in State 1", function(){checkArrayValuesAreAllTrue(state01).should.be.false;})   
-    it("The page is NOT in State 2", function(){checkArrayValuesAreAllTrue(state02).should.be.false;})
-    it("The page is NOT in State 3", function(){checkArrayValuesAreAllTrue(state03).should.be.false;})
-    it("The page is in State 4", function(){checkArrayValuesAreAllTrue(state04).should.be.true;})
-    it("The page is NOT in State 5", function(){checkArrayValuesAreAllTrue(state05).should.be.false;})
+    it("The page is NOT in State 0", function(){checkArrayValuesAreAllTrue(states[0]).should.be.false;})   
+    it("The page is NOT in State 1", function(){checkArrayValuesAreAllTrue(states[1]).should.be.false;})
+    it("The page is NOT in State 2", function(){checkArrayValuesAreAllTrue(states[2]).should.be.false;})
+    it("The page is in State 3", function(){checkArrayValuesAreAllTrue(states[3]).should.be.true;})
+    it("The page is NOT in State 4", function(){checkArrayValuesAreAllTrue(states[4]).should.be.false;})
   })
 
 

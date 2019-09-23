@@ -1,3 +1,37 @@
+const blackjackLandingPage = "file:///Users/Lee/workspace/beginner-js/src/blackjack.html";
+
+// Initialise game variables
+var state00;
+var state01;
+var state02;
+var state03;
+var state04;
+var gameScores;
+var playersScore;
+var dealersScore;
+var playerHasWon = false;
+var dealerHasWon = false;
+var result;
+
+
+// Set game variables
+async function setGameStateVariables(driver) {
+  state00 = await getState00(driver);
+  state01 = await getState01(driver);
+  state02 = await getState02(driver);
+  state03 = await getState03(driver);
+  state04 = await getState04(driver);
+  gameScores = await getScores(driver);
+  playersScore = parseInt(gameScores[0], 10);
+  dealersScore = parseInt(gameScores[1], 10);
+  result = "";
+}
+
+function getPageStates() {
+  states = [state00, state01, state02, state03, state04];
+  return states;
+}
+
 function getScore(driver, elementId){
   var score = driver.findElement({id: elementId}).getText()
   .then(
@@ -91,8 +125,20 @@ async function getScores(driver){
 }
 
 
+async function setPlayerHasWon(playerHasPlayed) {
+  if (playersScore === 21 || (dealersScore > 21)) playerHasWon = true;
+  if (playerHasPlayed && (playersScore > dealersScore)) playerHasWon = true;
+}
+
+
+async function setDealerHasWon(playerHasPlayed) {
+  if (playersScore > 21) dealerHasWon = true;
+  if (playerHasPlayed && (dealersScore < 21) && (dealersScore > playersScore)) dealerHasWon = true;
+}
+
+
 // State 01 = Launch page state
-async function getState01(driver){
+async function getState00(driver){
   var myPromises = Promise.all([
     // Assert whether elements are available
     canFindElement(driver, "page_title"), 
@@ -148,7 +194,7 @@ async function getState01(driver){
 
 
 // State 02 = New Game state
-async function getState02(driver){
+async function getState01(driver){
   var myPromises = Promise.all([
     // Assert whether elements are available
     canFindElement(driver, "page_title"), 
@@ -203,7 +249,7 @@ async function getState02(driver){
 }
 
 // State 03 = Game in-progress state
-async function getState03(driver){
+async function getState02(driver){
   var myPromises = Promise.all([
     // Assert whether elements are available
     canFindElement(driver, "page_title"), 
@@ -259,7 +305,7 @@ async function getState03(driver){
 
 
 // State 04 = 'End game' state; eg player has hit 'stick' and dealers hand is played
-async function getState04(driver){
+async function getState03(driver){
   var myPromises = Promise.all([
     // Assert whether elements are available
     canFindElement(driver, "page_title"), 
@@ -314,7 +360,7 @@ async function getState04(driver){
 }
 
 // State 05 = Reset
-async function getState05(driver){
+async function getState04(driver){
   var myPromises = Promise.all([
     // Assert whether elements are available
     canFindElement(driver, "page_title"), 
@@ -368,4 +414,7 @@ async function getState05(driver){
   return myPromises;}
   
   
-module.exports = {getScores, getState01, getState02, getState03, getState04, getState05, checkArrayValuesAreAllTrue};
+module.exports = {blackjackLandingPage, playerHasWon, dealerHasWon, result, checkArrayValuesAreAllTrue,
+                  getPageStates,
+                  setGameStateVariables, setPlayerHasWon, setDealerHasWon};
+

@@ -12,54 +12,32 @@ const driver = new webdriver.Builder()
   .forBrowser("chrome")
   .build();
 
-// import Selenium helpers
-const SeleniumWebdriverInteractions = require("../../helper/seleniumWebdriverInteractions.js");
+// import and initialise Selenium helpers
+const {setGameStateVariables, blackjackLandingPage, getPageStates, checkArrayValuesAreAllTrue} = require("../../helper/functions/seleniumBlackjackFunctions");
+const SeleniumWebdriverInteractions = require("../../helper/classes/seleniumWebdriverInteractions.js");
 const perform = new SeleniumWebdriverInteractions(driver, until, promise);
-const {getScores, getState01, getState02, getState03, getState04, getState05, checkArrayValuesAreAllTrue} = require("../../helper/seleniumBlackjackFunctions");
 
-// Initialise game variables
-const LANDING_PAGE = "file:///Users/Lee/workspace/beginner-js/src/blackjack.html";
-var state01;
-var state02;
-var state03;
-var state04;
-var state05;
-var gameScores;
-
-// Set game variables
-async function setGameStateVariables() {
-  state01 = await getState01(driver);
-  state02 = await getState02(driver);
-  state03 = await getState03(driver);
-  state04 = await getState04(driver);
-  state05 = await getState05(driver);
-  gameScores = await getScores(driver);
-  playersScore = parseInt(gameScores[0], 10);
-  result = "";
-}
+// local variables
+var states = [];
 
   describe("VERIFY THE STATE OF THE PAGE WHEN IT'S INITIALLY LOADED", function(){
+    before(function(){return perform.loadPage(blackjackLandingPage);})
 
-    before(function(){
-      return perform.loadPage(LANDING_PAGE);
-    })
-  
-    after(function(){
-      driver.quit();    
-    })
+    after(function(){driver.quit();})
 
     describe("01: Fetch results...", function() {
-      it("Update local variables...", async() => {
-        await setGameStateVariables();
+      it("Local variables have been updated", async() => {
+        await setGameStateVariables(driver);
+        states = getPageStates();
       })
     })
 
     describe("02: Check the state of the home page", function(){
-      it("The page is in State 1", function(){checkArrayValuesAreAllTrue(state01).should.be.true;})
-      it("The page is NOT in State 2", function(){checkArrayValuesAreAllTrue(state02).should.be.false;})
-      it("The page is NOT in State 3", function(){checkArrayValuesAreAllTrue(state03).should.be.false;})
-      it("The page is NOT in State 4", function(){checkArrayValuesAreAllTrue(state04).should.be.false;})
-      it("The page is NOT in State 5", function(){checkArrayValuesAreAllTrue(state05).should.be.false;})
+      it("The page is in State 0", function(){checkArrayValuesAreAllTrue(states[0]).should.be.true;})
+      it("The page is NOT in State 1", function(){checkArrayValuesAreAllTrue(states[1]).should.be.false;})
+      it("The page is NOT in State 2", function(){checkArrayValuesAreAllTrue(states[2]).should.be.false;})
+      it("The page is NOT in State 3", function(){checkArrayValuesAreAllTrue(states[3]).should.be.false;})
+      it("The page is NOT in State 4", function(){checkArrayValuesAreAllTrue(states[4]).should.be.false;})
     })
 
   })
