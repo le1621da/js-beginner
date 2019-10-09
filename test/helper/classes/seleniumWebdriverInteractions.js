@@ -34,6 +34,56 @@ class SeleniumWebdriverInteractions {
   }
 
 
+  cannotFindElement(elementId) {
+    var myPromise = this.driver.findElement({id: elementId})
+    .then(
+        result => false,
+        error => true  
+    )
+    return myPromise;
+  }
+  
+    
+  elementIsVisible(elementId) {
+    var myPromise = this.driver.findElement({id: elementId}).getCssValue("visibility")
+    .then(
+      result => (result === "visible"),
+      error => true 
+    )
+    return myPromise;
+  }
+  
+  
+  elementIsNotVisible(elementId) {
+    var myPromise = this.driver.findElement({id: elementId}).getCssValue("visibility")
+    .then(
+      result => (result === "hidden"),
+      error => true 
+    )
+    return myPromise;
+  }
+  
+  
+  elementTextValueIs(elementId, expectedText) {
+    var myPromise = this.driver.findElement({id: elementId}).getText()
+    .then(
+      result => (result === expectedText),
+      error => true 
+    )
+    return myPromise
+  }
+  
+  
+  elementTextValueIsNot(elementId, expectedText) {
+    var myPromise = this.driver.findElement({id: elementId}).getText()
+    .then(
+      result => (result !== expectedText),
+      error => error
+    )
+    return myPromise
+  }
+
+
   getElementVisibility(elementId) {
     var myPromise = this.driver.findElement({id: elementId}).getCssValue("visibility")
     .then(
