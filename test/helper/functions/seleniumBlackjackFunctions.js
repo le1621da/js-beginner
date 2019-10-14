@@ -1,13 +1,12 @@
 /* eslint-disable prefer-const */
-// set-up selenium
-const webdriver = require('selenium-webdriver');
 
-const driver = new webdriver.Builder()
-  .forBrowser('chrome')
-  .build();
-const SeleniumWebdriverInteractions = require('../../helper/classes/seleniumWebdriverInteractions.js');
+const {
+  canFindElement, cannotFindElement, elementIsVisible, elementIsNotVisible,
+  elementTextValueIs, elementTextValueIsNot,
+} = require('./seleniumCommonFunctions.js');
 
-const perform = new SeleniumWebdriverInteractions(driver);
+
+// const perform = new SeleniumWebdriverInteractions(driver);
 
 // Initialise game variables
 const blackjackLandingPage = 'file:///Users/Lee/workspace/beginner-js/src/blackjack.html';
@@ -53,7 +52,7 @@ function getResults() {
 }
 
 // extract the player's scores from the html
-function getScore(elementId) {
+function getScore(driver, elementId) {
   const score = driver.findElement({ id: elementId }).getText()
     .then(
       (result) => result.substr(7, result.length - 8),
@@ -62,10 +61,10 @@ function getScore(elementId) {
   return score;
 }
 
-async function getScores() {
+async function getScores(driver) {
   const myPromises = Promise.all([
-    getScore('players_score'),
-    getScore('dealers_score'),
+    getScore(driver, 'players_score'),
+    getScore(driver, 'dealers_score'),
   ])
     .then(
       (result) => result,
@@ -73,8 +72,8 @@ async function getScores() {
   return myPromises;
 }
 
-async function setGameScoreVariables() {
-  gameScores = await getScores();
+async function setGameScoreVariables(driver) {
+  gameScores = await getScores(driver);
   playersScore = parseInt(gameScores[0], 10);
   dealersScore = parseInt(gameScores[1], 10);
 }
@@ -89,51 +88,51 @@ function checkArrayValuesAreAllTrue(array) {
 }
 
 // State 01 = Launch page state
-async function getState00() {
+async function getState00(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
-    perform.canFindElement('page_title this should fail'),
-    perform.canFindElement('welcome_text'),
-    perform.canFindElement('players_header'),
-    perform.canFindElement('players_hand'),
-    perform.canFindElement('players_score'),
-    perform.canFindElement('deal_button'),
-    perform.canFindElement('stick_button'),
-    perform.canFindElement('twist_button'),
-    perform.canFindElement('dealers_header'),
-    perform.canFindElement('dealers_hand'),
-    perform.canFindElement('dealers_score'),
-    perform.canFindElement('results_area'),
-    perform.canFindElement('new_game_button'),
-    perform.cannotFindElement('negative_test_button'),
+    canFindElement(driver, 'page_title'),
+    canFindElement(driver, 'welcome_text'),
+    canFindElement(driver, 'players_header'),
+    canFindElement(driver, 'players_hand'),
+    canFindElement(driver, 'players_score'),
+    canFindElement(driver, 'deal_button'),
+    canFindElement(driver, 'stick_button'),
+    canFindElement(driver, 'twist_button'),
+    canFindElement(driver, 'dealers_header'),
+    canFindElement(driver, 'dealers_hand'),
+    canFindElement(driver, 'dealers_score'),
+    canFindElement(driver, 'results_area'),
+    canFindElement(driver, 'new_game_button'),
+    cannotFindElement(driver, 'negative_test_button'),
 
     // Assert whether elements are visible
-    perform.elementIsVisible('page_title'),
-    perform.elementIsVisible('welcome_text'),
-    perform.elementIsNotVisible('players_header'),
-    perform.elementIsVisible('players_hand'),
-    perform.elementIsVisible('players_score'),
-    perform.elementIsNotVisible('deal_button'),
-    perform.elementIsNotVisible('stick_button'),
-    perform.elementIsNotVisible('twist_button'),
-    perform.elementIsNotVisible('dealers_header'),
-    perform.elementIsVisible('dealers_hand'),
-    perform.elementIsVisible('dealers_score'),
-    perform.elementIsVisible('results_area'),
-    perform.elementIsVisible('new_game_button'),
-    perform.elementIsNotVisible('negative_test_button'),
+    elementIsVisible(driver, 'page_title'),
+    elementIsVisible(driver, 'welcome_text'),
+    elementIsNotVisible(driver, 'players_header'),
+    elementIsVisible(driver, 'players_hand'),
+    elementIsVisible(driver, 'players_score'),
+    elementIsNotVisible(driver, 'deal_button'),
+    elementIsNotVisible(driver, 'stick_button'),
+    elementIsNotVisible(driver, 'twist_button'),
+    elementIsNotVisible(driver, 'dealers_header'),
+    elementIsVisible(driver, 'dealers_hand'),
+    elementIsVisible(driver, 'dealers_score'),
+    elementIsVisible(driver, 'results_area'),
+    elementIsVisible(driver, 'new_game_button'),
+    elementIsNotVisible(driver, 'negative_test_button'),
 
     // Assert the text values of relevant fields
-    perform.elementTextValueIs('page_title', 'Blackjack!'),
-    perform.elementTextValueIs('welcome_text', 'Welcome to Blackjack!'),
-    perform.elementTextValueIs('players_header', ''),
-    perform.elementTextValueIs('players_hand', ''),
-    perform.elementTextValueIs('players_score', ''),
-    perform.elementTextValueIs('dealers_header', ''),
-    perform.elementTextValueIs('dealers_hand', ''),
-    perform.elementTextValueIs('dealers_score', ''),
-    perform.elementTextValueIs('results_area', ''),
-    perform.elementTextValueIsNot('page_title', 'Blackjack'),
+    elementTextValueIs(driver, 'page_title', 'Blackjack!'),
+    elementTextValueIs(driver, 'welcome_text', 'Welcome to Blackjack!'),
+    elementTextValueIs(driver, 'players_header', ''),
+    elementTextValueIs(driver, 'players_hand', ''),
+    elementTextValueIs(driver, 'players_score', ''),
+    elementTextValueIs(driver, 'dealers_header', ''),
+    elementTextValueIs(driver, 'dealers_hand', ''),
+    elementTextValueIs(driver, 'dealers_score', ''),
+    elementTextValueIs(driver, 'results_area', ''),
+    elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
   ])
 
     .then(
@@ -144,51 +143,51 @@ async function getState00() {
 
 
 // State 02 = New Game state
-async function getState01() {
+async function getState01(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
-    perform.canFindElement('page_title'),
-    perform.canFindElement('welcome_text'),
-    perform.canFindElement('players_header'),
-    perform.canFindElement('players_hand'),
-    perform.canFindElement('players_score'),
-    perform.canFindElement('deal_button'),
-    perform.canFindElement('stick_button'),
-    perform.canFindElement('twist_button'),
-    perform.canFindElement('dealers_header'),
-    perform.canFindElement('dealers_hand'),
-    perform.canFindElement('dealers_score'),
-    perform.canFindElement('results_area'),
-    perform.canFindElement('new_game_button'),
-    perform.cannotFindElement('negative_test_button'),
+    canFindElement(driver, 'page_title'),
+    canFindElement(driver, 'welcome_text'),
+    canFindElement(driver, 'players_header'),
+    canFindElement(driver, 'players_hand'),
+    canFindElement(driver, 'players_score'),
+    canFindElement(driver, 'deal_button'),
+    canFindElement(driver, 'stick_button'),
+    canFindElement(driver, 'twist_button'),
+    canFindElement(driver, 'dealers_header'),
+    canFindElement(driver, 'dealers_hand'),
+    canFindElement(driver, 'dealers_score'),
+    canFindElement(driver, 'results_area'),
+    canFindElement(driver, 'new_game_button'),
+    cannotFindElement(driver, 'negative_test_button'),
 
     // Assert whether elements are visible
-    perform.elementIsVisible('page_title'),
-    perform.elementIsVisible('welcome_text'),
-    perform.elementIsNotVisible('players_header'),
-    perform.elementIsVisible('players_hand'),
-    perform.elementIsVisible('players_score'),
-    perform.elementIsVisible('deal_button'),
-    perform.elementIsNotVisible('stick_button'),
-    perform.elementIsNotVisible('twist_button'),
-    perform.elementIsNotVisible('dealers_header'),
-    perform.elementIsVisible('dealers_hand'),
-    perform.elementIsVisible('dealers_score'),
-    perform.elementIsVisible('results_area'),
-    perform.elementIsNotVisible('new_game_button'),
-    perform.elementIsNotVisible('negative_test_button'),
+    elementIsVisible(driver, 'page_title'),
+    elementIsVisible(driver, 'welcome_text'),
+    elementIsNotVisible(driver, 'players_header'),
+    elementIsVisible(driver, 'players_hand'),
+    elementIsVisible(driver, 'players_score'),
+    elementIsVisible(driver, 'deal_button'),
+    elementIsNotVisible(driver, 'stick_button'),
+    elementIsNotVisible(driver, 'twist_button'),
+    elementIsNotVisible(driver, 'dealers_header'),
+    elementIsVisible(driver, 'dealers_hand'),
+    elementIsVisible(driver, 'dealers_score'),
+    elementIsVisible(driver, 'results_area'),
+    elementIsNotVisible(driver, 'new_game_button'),
+    elementIsNotVisible(driver, 'negative_test_button'),
 
     // Assert the text values of relevant fields
-    perform.elementTextValueIs('page_title', 'Blackjack!'),
-    perform.elementTextValueIs('welcome_text', ''),
-    perform.elementTextValueIs('players_header', ''),
-    perform.elementTextValueIs('players_hand', ''),
-    perform.elementTextValueIs('players_score', ''),
-    perform.elementTextValueIs('dealers_header', ''),
-    perform.elementTextValueIs('dealers_hand', ''),
-    perform.elementTextValueIs('dealers_score', ''),
-    perform.elementTextValueIs('results_area', ''),
-    perform.elementTextValueIsNot('page_title', 'Blackjack'),
+    elementTextValueIs(driver, 'page_title', 'Blackjack!'),
+    elementTextValueIs(driver, 'welcome_text', ''),
+    elementTextValueIs(driver, 'players_header', ''),
+    elementTextValueIs(driver, 'players_hand', ''),
+    elementTextValueIs(driver, 'players_score', ''),
+    elementTextValueIs(driver, 'dealers_header', ''),
+    elementTextValueIs(driver, 'dealers_hand', ''),
+    elementTextValueIs(driver, 'dealers_score', ''),
+    elementTextValueIs(driver, 'results_area', ''),
+    elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
   ])
 
     .then(
@@ -198,51 +197,51 @@ async function getState01() {
 }
 
 // State 03 = Game in-progress state
-async function getState02() {
+async function getState02(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
-    perform.canFindElement('page_title'),
-    perform.canFindElement('welcome_text'),
-    perform.canFindElement('players_header'),
-    perform.canFindElement('players_hand'),
-    perform.canFindElement('players_score'),
-    perform.canFindElement('deal_button'),
-    perform.canFindElement('stick_button'),
-    perform.canFindElement('twist_button'),
-    perform.canFindElement('dealers_header'),
-    perform.canFindElement('dealers_hand'),
-    perform.canFindElement('dealers_score'),
-    perform.canFindElement('results_area'),
-    perform.canFindElement('new_game_button'),
-    perform.cannotFindElement('negative_test_button'),
+    canFindElement(driver, 'page_title'),
+    canFindElement(driver, 'welcome_text'),
+    canFindElement(driver, 'players_header'),
+    canFindElement(driver, 'players_hand'),
+    canFindElement(driver, 'players_score'),
+    canFindElement(driver, 'deal_button'),
+    canFindElement(driver, 'stick_button'),
+    canFindElement(driver, 'twist_button'),
+    canFindElement(driver, 'dealers_header'),
+    canFindElement(driver, 'dealers_hand'),
+    canFindElement(driver, 'dealers_score'),
+    canFindElement(driver, 'results_area'),
+    canFindElement(driver, 'new_game_button'),
+    cannotFindElement(driver, 'negative_test_button'),
 
     // Assert whether elements are visible
-    perform.elementIsVisible('page_title'),
-    perform.elementIsVisible('welcome_text'),
-    perform.elementIsVisible('players_header'),
-    perform.elementIsVisible('players_hand'),
-    perform.elementIsVisible('players_score'),
-    perform.elementIsNotVisible('deal_button'),
-    perform.elementIsVisible('stick_button'),
-    perform.elementIsVisible('twist_button'),
-    perform.elementIsVisible('dealers_header'),
-    perform.elementIsVisible('dealers_hand'),
-    perform.elementIsVisible('dealers_score'),
-    perform.elementIsVisible('results_area'),
-    perform.elementIsNotVisible('new_game_button'),
-    perform.elementIsNotVisible('negative_test_button'),
+    elementIsVisible(driver, 'page_title'),
+    elementIsVisible(driver, 'welcome_text'),
+    elementIsVisible(driver, 'players_header'),
+    elementIsVisible(driver, 'players_hand'),
+    elementIsVisible(driver, 'players_score'),
+    elementIsNotVisible(driver, 'deal_button'),
+    elementIsVisible(driver, 'stick_button'),
+    elementIsVisible(driver, 'twist_button'),
+    elementIsVisible(driver, 'dealers_header'),
+    elementIsVisible(driver, 'dealers_hand'),
+    elementIsVisible(driver, 'dealers_score'),
+    elementIsVisible(driver, 'results_area'),
+    elementIsNotVisible(driver, 'new_game_button'),
+    elementIsNotVisible(driver, 'negative_test_button'),
 
     // Assert the text values of relevant fields
-    perform.elementTextValueIs('page_title', 'Blackjack!'),
-    perform.elementTextValueIs('welcome_text', ''),
-    perform.elementTextValueIs('players_header', 'Player has:'),
-    perform.elementTextValueIsNot('players_hand', ''),
-    perform.elementTextValueIsNot('players_score', ''),
-    perform.elementTextValueIs('dealers_header', 'Dealer has:'),
-    perform.elementTextValueIsNot('dealers_hand', ''),
-    perform.elementTextValueIsNot('dealers_score', ''),
-    perform.elementTextValueIs('results_area', ''),
-    perform.elementTextValueIsNot('page_title', 'Blackjack'),
+    elementTextValueIs(driver, 'page_title', 'Blackjack!'),
+    elementTextValueIs(driver, 'welcome_text', ''),
+    elementTextValueIs(driver, 'players_header', 'Player has:'),
+    elementTextValueIsNot(driver, 'players_hand', ''),
+    elementTextValueIsNot(driver, 'players_score', ''),
+    elementTextValueIs(driver, 'dealers_header', 'Dealer has:'),
+    elementTextValueIsNot(driver, 'dealers_hand', ''),
+    elementTextValueIsNot(driver, 'dealers_score', ''),
+    elementTextValueIs(driver, 'results_area', ''),
+    elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
   ])
 
     .then(
@@ -253,51 +252,51 @@ async function getState02() {
 
 
 // State 04 = 'End game' state; eg player has hit 'stick' and dealers hand is played
-async function getState03() {
+async function getState03(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
-    perform.canFindElement('page_title'),
-    perform.canFindElement('welcome_text'),
-    perform.canFindElement('players_header'),
-    perform.canFindElement('players_hand'),
-    perform.canFindElement('players_score'),
-    perform.canFindElement('deal_button'),
-    perform.canFindElement('stick_button'),
-    perform.canFindElement('twist_button'),
-    perform.canFindElement('dealers_header'),
-    perform.canFindElement('dealers_hand'),
-    perform.canFindElement('dealers_score'),
-    perform.canFindElement('results_area'),
-    perform.canFindElement('new_game_button'),
-    perform.cannotFindElement('negative_test_button'),
+    canFindElement(driver, 'page_title'),
+    canFindElement(driver, 'welcome_text'),
+    canFindElement(driver, 'players_header'),
+    canFindElement(driver, 'players_hand'),
+    canFindElement(driver, 'players_score'),
+    canFindElement(driver, 'deal_button'),
+    canFindElement(driver, 'stick_button'),
+    canFindElement(driver, 'twist_button'),
+    canFindElement(driver, 'dealers_header'),
+    canFindElement(driver, 'dealers_hand'),
+    canFindElement(driver, 'dealers_score'),
+    canFindElement(driver, 'results_area'),
+    canFindElement(driver, 'new_game_button'),
+    cannotFindElement(driver, 'negative_test_button'),
 
     // Assert whether elements are visible
-    perform.elementIsVisible('page_title'),
-    perform.elementIsVisible('welcome_text'),
-    perform.elementIsVisible('players_header'),
-    perform.elementIsVisible('players_hand'),
-    perform.elementIsVisible('players_score'),
-    perform.elementIsNotVisible('deal_button'),
-    perform.elementIsNotVisible('stick_button'),
-    perform.elementIsNotVisible('twist_button'),
-    perform.elementIsVisible('dealers_header'),
-    perform.elementIsVisible('dealers_hand'),
-    perform.elementIsVisible('dealers_score'),
-    perform.elementIsVisible('results_area'),
-    perform.elementIsVisible('new_game_button'),
-    perform.elementIsNotVisible('negative_test_button'),
+    elementIsVisible(driver, 'page_title'),
+    elementIsVisible(driver, 'welcome_text'),
+    elementIsVisible(driver, 'players_header'),
+    elementIsVisible(driver, 'players_hand'),
+    elementIsVisible(driver, 'players_score'),
+    elementIsNotVisible(driver, 'deal_button'),
+    elementIsNotVisible(driver, 'stick_button'),
+    elementIsNotVisible(driver, 'twist_button'),
+    elementIsVisible(driver, 'dealers_header'),
+    elementIsVisible(driver, 'dealers_hand'),
+    elementIsVisible(driver, 'dealers_score'),
+    elementIsVisible(driver, 'results_area'),
+    elementIsVisible(driver, 'new_game_button'),
+    elementIsNotVisible(driver, 'negative_test_button'),
 
     // Assert the text values of relevant fields
-    perform.elementTextValueIs('page_title', 'Blackjack!'),
-    perform.elementTextValueIs('welcome_text', ''),
-    perform.elementTextValueIs('players_header', 'Player has:'),
-    perform.elementTextValueIsNot('players_hand', ''),
-    perform.elementTextValueIsNot('players_score', ''),
-    perform.elementTextValueIs('dealers_header', 'Dealer has:'),
-    perform.elementTextValueIsNot('dealers_hand', ''),
-    perform.elementTextValueIsNot('dealers_score', ''),
-    perform.elementTextValueIsNot('results_area', ''),
-    perform.elementTextValueIsNot('page_title', 'Blackjack'),
+    elementTextValueIs(driver, 'page_title', 'Blackjack!'),
+    elementTextValueIs(driver, 'welcome_text', ''),
+    elementTextValueIs(driver, 'players_header', 'Player has:'),
+    elementTextValueIsNot(driver, 'players_hand', ''),
+    elementTextValueIsNot(driver, 'players_score', ''),
+    elementTextValueIs(driver, 'dealers_header', 'Dealer has:'),
+    elementTextValueIsNot(driver, 'dealers_hand', ''),
+    elementTextValueIsNot(driver, 'dealers_score', ''),
+    elementTextValueIsNot(driver, 'results_area', ''),
+    elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
   ])
 
     .then(
@@ -307,51 +306,51 @@ async function getState03() {
 }
 
 // State 05 = Reset
-async function getState04() {
+async function getState04(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
-    perform.canFindElement('page_title'),
-    perform.canFindElement('welcome_text'),
-    perform.canFindElement('players_header'),
-    perform.canFindElement('players_hand'),
-    perform.canFindElement('players_score'),
-    perform.canFindElement('deal_button'),
-    perform.canFindElement('stick_button'),
-    perform.canFindElement('twist_button'),
-    perform.canFindElement('dealers_header'),
-    perform.canFindElement('dealers_hand'),
-    perform.canFindElement('dealers_score'),
-    perform.canFindElement('results_area'),
-    perform.canFindElement('new_game_button'),
-    perform.cannotFindElement('negative_test_button'),
+    canFindElement(driver, 'page_title'),
+    canFindElement(driver, 'welcome_text'),
+    canFindElement(driver, 'players_header'),
+    canFindElement(driver, 'players_hand'),
+    canFindElement(driver, 'players_score'),
+    canFindElement(driver, 'deal_button'),
+    canFindElement(driver, 'stick_button'),
+    canFindElement(driver, 'twist_button'),
+    canFindElement(driver, 'dealers_header'),
+    canFindElement(driver, 'dealers_hand'),
+    canFindElement(driver, 'dealers_score'),
+    canFindElement(driver, 'results_area'),
+    canFindElement(driver, 'new_game_button'),
+    cannotFindElement(driver, 'negative_test_button'),
 
     // Assert whether elements are visible
-    perform.elementIsVisible('page_title'),
-    perform.elementIsVisible('welcome_text'),
-    perform.elementIsVisible('players_header'),
-    perform.elementIsVisible('players_hand'),
-    perform.elementIsVisible('players_score'),
-    perform.elementIsNotVisible('deal_button'),
-    perform.elementIsNotVisible('stick_button'),
-    perform.elementIsNotVisible('twist_button'),
-    perform.elementIsVisible('dealers_header'),
-    perform.elementIsVisible('dealers_hand'),
-    perform.elementIsVisible('dealers_score'),
-    perform.elementIsVisible('results_area'),
-    perform.elementIsVisible('new_game_button'),
-    perform.elementIsNotVisible('negative_test_button'),
+    elementIsVisible(driver, 'page_title'),
+    elementIsVisible(driver, 'welcome_text'),
+    elementIsVisible(driver, 'players_header'),
+    elementIsVisible(driver, 'players_hand'),
+    elementIsVisible(driver, 'players_score'),
+    elementIsNotVisible(driver, 'deal_button'),
+    elementIsNotVisible(driver, 'stick_button'),
+    elementIsNotVisible(driver, 'twist_button'),
+    elementIsVisible(driver, 'dealers_header'),
+    elementIsVisible(driver, 'dealers_hand'),
+    elementIsVisible(driver, 'dealers_score'),
+    elementIsVisible(driver, 'results_area'),
+    elementIsVisible(driver, 'new_game_button'),
+    elementIsNotVisible(driver, 'negative_test_button'),
 
     // Assert the text values of relevant fields
-    perform.elementTextValueIs('page_title', 'Blackjack!'),
-    perform.elementTextValueIs('welcome_text', ''),
-    perform.elementTextValueIs('players_header', ''),
-    perform.elementTextValueIs('players_hand', ''),
-    perform.elementTextValueIs('players_score', ''),
-    perform.elementTextValueIs('dealers_header', ''),
-    perform.elementTextValueIs('dealers_hand', ''),
-    perform.elementTextValueIs('dealers_score', ''),
-    perform.elementTextValueIs('results_area', ''),
-    perform.elementTextValueIsNot('page_title', 'Blackjack'),
+    elementTextValueIs(driver, 'page_title', 'Blackjack!'),
+    elementTextValueIs(driver, 'welcome_text', ''),
+    elementTextValueIs(driver, 'players_header', ''),
+    elementTextValueIs(driver, 'players_hand', ''),
+    elementTextValueIs(driver, 'players_score', ''),
+    elementTextValueIs(driver, 'dealers_header', ''),
+    elementTextValueIs(driver, 'dealers_hand', ''),
+    elementTextValueIs(driver, 'dealers_score', ''),
+    elementTextValueIs(driver, 'results_area', ''),
+    elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
   ])
 
     .then(
@@ -361,12 +360,12 @@ async function getState04() {
 }
 
 // Set game variables
-async function setGameStateVariables() {
-  state00 = await getState00();
-  state01 = await getState01();
-  state02 = await getState02();
-  state03 = await getState03();
-  state04 = await getState04();
+async function setGameStateVariables(driver) {
+  state00 = await getState00(driver);
+  state01 = await getState01(driver);
+  state02 = await getState02(driver);
+  state03 = await getState03(driver);
+  state04 = await getState04(driver);
 }
 
 
@@ -380,6 +379,4 @@ module.exports = {
   setGameStateVariables,
   setGameScoreVariables,
   setWinner,
-  perform,
-  driver,
 };
