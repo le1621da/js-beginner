@@ -51,6 +51,13 @@ function getResults() {
   return result;
 }
 
+function resetResults() {
+  playerHasWon = false;
+  dealerHasWon = false;
+  playersScore = 0;
+  dealersScore = 0;
+}
+
 // extract the player's scores from the html
 function getScore(driver, elementId) {
   const score = driver.findElement({ id: elementId }).getText()
@@ -379,4 +386,5 @@ module.exports = {
   setGameStateVariables,
   setGameScoreVariables,
   setWinner,
+  resetResults,
 };

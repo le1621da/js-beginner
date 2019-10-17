@@ -1,19 +1,14 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
-// set up the test runner
+
+// imports
+const webdriver = require('selenium-webdriver');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
+// initialise test runner and selenium
 chai.use(chaiAsPromised);
-// chai.should();
-
-// set-up selenium
-
-const webdriver = require('selenium-webdriver');
-
-const driver = new webdriver.Builder()
-  .forBrowser('chrome')
-  .build();
+const driver = new webdriver.Builder().forBrowser('chrome').build();
 
 // import and initialise Selenium helpers
 const {

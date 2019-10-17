@@ -1,19 +1,15 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable consistent-return */
-// set up the test runner
+
+// imports
+const webdriver = require('selenium-webdriver');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
+// initialise test runner and selenium
 chai.use(chaiAsPromised);
-// chai.should();
-
-// set-up selenium
-const webdriver = require('selenium-webdriver');
-
-const driver = new webdriver.Builder()
-  .forBrowser('chrome')
-  .build();
+const driver = new webdriver.Builder().forBrowser('chrome').build();
 
 // import and initialise Selenium helpers
 const {
@@ -24,6 +20,7 @@ const {
   setGameStateVariables,
   setGameScoreVariables,
   setWinner,
+  resetResults,
 } = require('../../helper/functions/seleniumBlackjackFunctions.js');
 
 const {
@@ -39,7 +36,10 @@ const playerHasStuck = false;
 
 // Tests
 describe('FEATURE: Blackjack', () => {
-  after(() => { driver.quit(); });
+  after(async () => {
+    driver.quit();
+    await resetResults();
+  });
 
   describe('SCENARIO 04: Twist', () => {
     it('GIVEN the blackjack page is loaded', () => loadPage(driver, blackjackLandingPage));
