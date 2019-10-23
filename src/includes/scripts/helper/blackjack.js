@@ -2,10 +2,36 @@
 // Unit-testable blackjack functions
 //
 
+function checkScores(playerHasFinished, playersScore, computersScore) {
+  let winner = 'Pending';
+  let string = 'Game in progress...';
+
+  if (playersScore === 21) {
+    winner = 'Player';
+    string = 'Player wins with a 21!';
+  } else if (playersScore > 21) {
+    winner = 'Dealer';
+    string = 'Player busts.';
+  } else if (computersScore > 21) {
+    winner = 'Player';
+    string = 'Dealer busts.';
+  } else if (playerHasFinished) {
+    if (computersScore === playersScore) {
+      winner = 'Dealer';
+      string = "It's a tie!  Dealer wins.";
+    } else if (computersScore > playersScore) {
+      winner = 'Dealer';
+      string = 'Dealer outscores player.';
+    }
+  }
+
+  return { winner, string };
+}
+
+
 function getScore(hand) {
   let score = 0;
   let hasAce = false;
-  // let isBust = false;
 
   for (let i = 0; i < hand.length; i += 1) {
     score += hand[i].value;
@@ -18,9 +44,7 @@ function getScore(hand) {
     score += 10;
   }
 
-  // if (score > 21) isBust = true;
-
   return score;
 }
 
-module.exports = { getScore };
+module.exports = { getScore, checkScores };

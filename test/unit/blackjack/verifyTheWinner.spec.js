@@ -6,8 +6,7 @@ const chai = require('chai');
 chai.should();
 
 // import the functions
-// const {getScore} = require('../../../src/includes/scripts/helper/blackjack');
-const { checkScores } = require('../../../src/includes/scripts/helper/cards');
+const { checkScores } = require('../../../src/includes/scripts/helper/blackjack');
 
 describe('VERIFY THE END-GAME FUNCTIONS', () => {
   describe('01: Determine who the winner is', () => {
