@@ -9,7 +9,7 @@ const {
 // const perform = new SeleniumWebdriverInteractions(driver);
 
 // Initialise game variables
-const blackjackLandingPage = 'file:///Users/Lee/workspace/beginner-js/src/blackjack.html';
+const blackjackLandingPage = 'file:///Users/Lee/workspace/beginner-js/src/pages/blackjack.html';
 let state00;
 let state01;
 let state02;
