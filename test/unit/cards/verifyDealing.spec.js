@@ -9,7 +9,7 @@ chai.should();
 // import the functions
 const {
   buildADeckOfCards, getHandString, randomCardNumber, dealRandomCard,
-} = require('../../../src/includes/scripts/helper/cards');
+} = require('../../../src/functions/cards');
 
 describe('VERIFY THE DEALING FUNCTIONS', () => {
   describe("01: Stringify the player's Hand", () => {

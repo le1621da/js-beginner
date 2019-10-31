@@ -4,12 +4,7 @@
 //
 
 // eslint-disable-next-line no-undef
-requirejs(['helper/cards', 'helper/blackjack'], () => {
-  // This function is called when scripts/helper/util.js is loaded.
-  // If util.js calls define(), then this function is not fired until
-  // util's dependencies have loaded, and the util argument will hold
-  // the module value for "helper/util".
-});
+requirejs(['../functions/cards', '../functions/blackjack'], () => {});
 
 // DOM variables
 // const title = document.getElementById('page_title');

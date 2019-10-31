@@ -8,7 +8,7 @@ chai.should();
 // import the functions
 const {
   buildADeckOfCards, shuffleADeckOfCards, buildAndShuffleADeckOfCards,
-} = require('../../../src/includes/scripts/helper/cards');
+} = require('../../../src/functions/cards');
 
 describe('VERIFY THE DECK', () => {
   describe('01: Check a newly built deck', () => {
