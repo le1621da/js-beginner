@@ -4,7 +4,7 @@
 
 
 // debug mode
-const debug = true;
+const debug = false;
 
 function printDeck(deck) {
   deck.forEach((card) => {
