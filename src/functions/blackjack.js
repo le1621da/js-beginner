@@ -2,6 +2,7 @@
 // Unit-testable blackjack functions
 //
 
+
 function checkScores(playerHasFinished, playersScore, computersScore) {
   let winner = 'Pending';
   let string = 'Game in progress...';
@@ -30,6 +31,9 @@ function checkScores(playerHasFinished, playersScore, computersScore) {
 
 
 function getScore(hand) {
+
+console.log(hand);
+
   let score = 0;
   let hasAce = false;
 
@@ -47,4 +51,7 @@ function getScore(hand) {
   return score;
 }
 
-module.exports = { getScore, checkScores };
+module.exports = {
+  getScore,
+  checkScores,
+};

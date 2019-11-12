@@ -2,13 +2,9 @@
 //  unit-testable card functions
 //
 
-// Card variables
-const suits = ['Spades', 'Clubs', 'Diamonds', 'Hearts'];
-const ranks = ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace'];
-const value = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 1];
 
 // debug mode
-const debug = false;
+const debug = true;
 
 function printDeck(deck) {
   deck.forEach((card) => {
@@ -18,20 +14,17 @@ function printDeck(deck) {
 }
 
 
-function buildADeckOfCards() {
+function buildADeckOfCards(cards) {
   const deckOfCards = [];
 
-  for (let suitIndex = 0; suitIndex < suits.length; suitIndex += 1) {
-    for (let rankIndex = 0; rankIndex < ranks.length; rankIndex += 1) {
-      const card = {
-        suit: suits[suitIndex],
-        rank: ranks[rankIndex],
-        value: value[rankIndex],
-      };
-      deckOfCards.push(card);
-    }
+  for (let count = 0; count < cards.length; count += 1) {
+    const card = {
+      suit: cards[count].suit,
+      rank: cards[count].rank,
+      value: cards[count].value,
+    };
+    deckOfCards.push(card);
   }
-
   if (debug) printDeck(deckOfCards);
   return deckOfCards;
 }
@@ -39,9 +32,10 @@ function buildADeckOfCards() {
 
 function shuffleADeckOfCards(deck) {
   const shuffledDeckOfCards = [];
+  const fullDeckLength = deck.length;
   let count = 0;
 
-  while (count < 52) {
+  while (count < fullDeckLength) {
     const cardIndex = Math.floor(Math.random() * deck.length); // could also have used Math.trunc
     const shuffledCard = deck.splice(cardIndex, 1);
     shuffledDeckOfCards.push(shuffledCard[0]);
@@ -53,8 +47,8 @@ function shuffleADeckOfCards(deck) {
 }
 
 
-function buildAndShuffleADeckOfCards() {
-  return shuffleADeckOfCards(buildADeckOfCards());
+function buildAndShuffleADeckOfCards(cards) {
+  return shuffleADeckOfCards(buildADeckOfCards(cards));
 }
 
 function randomCardNumber(deck) {

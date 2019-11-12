@@ -4,7 +4,16 @@
 //
 
 // eslint-disable-next-line no-undef
-requirejs(['../functions/cards', '../functions/blackjack'], () => {});
+requirejs(['../data/cardsData', '../functions/deck', '../functions/blackjack'], () => {});
+
+
+//
+//  Give up on this.  Stick with javascript functions.
+//  Just separate out the cards functions from deck functions
+//  and wherever the printHand function should sit.
+//
+//
+
 
 // DOM variables
 // const title = document.getElementById('page_title');
@@ -32,6 +41,7 @@ let dealerScore = 0;
 let playerScore = 0;
 // let playersHandAndScoreString = '';
 // let dealersHandAndScoreString = '';
+let playingCards = [];
 let deck = [];
 
 
@@ -94,6 +104,8 @@ function setNewGameState() {
   dealButton.style.visibility = 'visible';
 
   resultsArea.innerText = '';
+
+  playingCards = getPlayingCards();
 }
 
 function resetGameVariables() {
@@ -106,6 +118,7 @@ function resetGameVariables() {
   playerScore = 0;
   // playersHandAndScoreString = '';
   deck = [];
+  playingCards = [];
 }
 
 // Start a new game... look out for a click and then execute the function
@@ -128,7 +141,7 @@ dealButton.addEventListener('click', () => {
   setInGameState();
 
   // Opening deal
-  deck = buildAndShuffleADeckOfCards();
+  deck = buildAndShuffleADeckOfCards(playingCards);
   dealRandomCard(playersCards, deck);
   dealRandomCard(playersCards, deck);
   dealRandomCard(dealersCards, deck);
