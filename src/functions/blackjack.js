@@ -31,9 +31,6 @@ function checkScores(playerHasFinished, playersScore, computersScore) {
 
 
 function getScore(hand) {
-
-console.log(hand);
-
   let score = 0;
   let hasAce = false;
 

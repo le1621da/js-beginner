@@ -7,14 +7,6 @@
 requirejs(['../data/cardsData', '../functions/deck', '../functions/blackjack'], () => {});
 
 
-//
-//  Give up on this.  Stick with javascript functions.
-//  Just separate out the cards functions from deck functions
-//  and wherever the printHand function should sit.
-//
-//
-
-
 // DOM variables
 // const title = document.getElementById('page_title');
 const welcomeText = document.getElementById('welcome_text');
