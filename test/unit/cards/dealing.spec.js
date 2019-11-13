@@ -9,7 +9,13 @@ chai.should();
 // import the functions
 const {
   buildADeckOfCards, getHandString, randomCardNumber, dealRandomCard,
-} = require('../../../src/functions/cards');
+} = require('../../../src/functions/deck');
+
+const {
+  getPlayingCards,
+} = require('../../../src/data/cardsData');
+
+const playingCards = getPlayingCards();
 
 describe('VERIFY THE DEALING FUNCTIONS', () => {
   describe("01: Stringify the player's Hand", () => {
@@ -25,7 +31,7 @@ describe('VERIFY THE DEALING FUNCTIONS', () => {
   });
 
   describe('02: Verify the random card number generator i', () => {
-    const deck = buildADeckOfCards();
+    const deck = buildADeckOfCards(playingCards);
     it('The random card number generated is between 0 and 51', () => { randomCardNumber(deck).should.not.be.lessThan(0); });
     it('The random card number generated is between 0 and 51', () => { randomCardNumber(deck).should.not.be.greaterThan(51); });
     it('The random card number generated is between 0 and 51', () => { randomCardNumber(deck).should.be.greaterThan(-1); });
@@ -42,7 +48,7 @@ describe('VERIFY THE DEALING FUNCTIONS', () => {
   describe('04: Verify the state of the game after dealing a random card from the deck i', () => {
     const playersHand = [];
     const dealersHand = [];
-    const deck = buildADeckOfCards();
+    const deck = buildADeckOfCards(playingCards);
 
     // Deal one
     const dealt = dealRandomCard(playersHand, deck);
