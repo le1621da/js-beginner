@@ -4,7 +4,7 @@
 //
 
 // eslint-disable-next-line no-undef
-requirejs(['../data/cardsData', '../functions/deck', '../functions/blackjack'], () => {});
+requirejs(['../data/cardsData', '../functions/deck', '../functions/blackjackScoring'], () => {});
 
 
 // DOM variables
