@@ -56,10 +56,19 @@ function randomCardNumber(deck) {
   return cardIndex;
 }
 
-function dealRandomCard(hand, deckOfCards) {
+function dealRandomCard(hand, deckOfCards, cards) {
   const cardIndex = randomCardNumber(deckOfCards);
+
+  // Add a card to the hand
   hand.push(deckOfCards[cardIndex]);
+  // Remove the same card from the deck
   deckOfCards.splice(cardIndex, 1);
+
+  if (deckOfCards.length === 0) {
+    // eslint-disable-next-line no-param-reassign
+    deckOfCards = buildAndShuffleADeckOfCards(cards);
+  }
+
   return { deckOfCards, hand };
 }
 

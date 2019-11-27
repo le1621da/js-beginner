@@ -80,6 +80,16 @@ function checkGameStatus(playerHasFinished) {
   return status.winner;
 }
 
+function setDeck() {
+  if (deck.length === 0) {
+    deck = buildAndShuffleADeckOfCards(playingCards);
+  }
+}
+
+function setDeckAndDealRandomCard(dealerOrPlayersCards) {
+  setDeck();
+  dealRandomCard(dealerOrPlayersCards, deck, playingCards);
+}
 
 function setNewGameState() {
   welcomeText.innerText = '';
@@ -109,7 +119,7 @@ function resetGameVariables() {
   dealerScore = 0;
   playerScore = 0;
   // playersHandAndScoreString = '';
-  deck = [];
+  // deck = [];
   playingCards = [];
 }
 
@@ -132,11 +142,10 @@ dealButton.addEventListener('click', () => {
   // Amend the html
   setInGameState();
 
-  // Opening deal
-  deck = buildAndShuffleADeckOfCards(playingCards);
-  dealRandomCard(playersCards, deck);
-  dealRandomCard(playersCards, deck);
-  dealRandomCard(dealersCards, deck);
+  // Deal
+  setDeckAndDealRandomCard(playersCards);
+  setDeckAndDealRandomCard(playersCards);
+  setDeckAndDealRandomCard(dealersCards);
 
   // Update scores and output
   checkGameStatus(false);
@@ -147,7 +156,8 @@ dealButton.addEventListener('click', () => {
 
 // Player adds cards
 twistButton.addEventListener('click', () => {
-  dealRandomCard(playersCards, deck);
+  // Deal
+  setDeckAndDealRandomCard(playersCards);
 
   // Update results and output
   checkGameStatus(false);
@@ -162,7 +172,8 @@ stickButton.addEventListener('click', () => {
 
   // Dealer plays until there's a winner...
   do {
-    dealRandomCard(dealersCards, deck);
+    // Deal
+    setDeckAndDealRandomCard(dealersCards);
     status = checkGameStatus(true);
     outputDealersScore();
   }
