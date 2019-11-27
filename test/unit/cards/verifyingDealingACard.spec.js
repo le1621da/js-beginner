@@ -75,4 +75,15 @@ describe('VERIFY THE DEALING FUNCTIONS', () => {
     it("A player's score should be greater than 0 after they've been dealt a card", () => { playersHand[0].should.have.property('value').equal(2); });
     it("The dealer's hand is empty after the the player has been dealt a card", () => { dealersHand.should.be.empty; });
   });
+
+  describe('05: Verify building a new deck after dealing the last card', () => {
+    const playersHand = [];
+    const deck = [{ suit: 'Spades', rank: 'Two', value: 2 }];
+
+    // Deal one
+    const dealt = dealRandomCard(playersHand, deck, playingCards);
+    const remainingDeck = dealt.deckOfCards;
+
+    it('The rebuilt deck has 52 cards after the last card has been dealt', () => { remainingDeck.length.should.equal(52); });
+  });
 });
