@@ -40,7 +40,7 @@ describe('FEATURE: Blackjack', () => {
 
   describe('SCENARIO 03: Deal', () => {
     it('GIVEN the blackjack page is loaded', () => loadPage(driver, blackjackLandingPage));
-    it('WHEN the new game button has been clicked', () => clickButton(driver, 'new_game_button').should.eventually.be.true);
+    it('  AND the new game button has been clicked', () => clickButton(driver, 'new_game_button').should.eventually.be.true);
     it('WHEN the deal button is clicked', () => clickButton(driver, 'deal_button').should.eventually.be.true);
     it('  AND selenium gets values from the page for verfication', async () => {
       await setGameStateVariables(driver);

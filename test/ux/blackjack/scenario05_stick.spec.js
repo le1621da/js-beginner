@@ -57,7 +57,7 @@ describe('FEATURE: Blackjack', () => {
       results = getResults();
     });
 
-    it('WHEN the twist button has been clicked (if there is no winner yet)', () => { if (!results.playerHasWon) return clickButton(driver, 'stick_button').should.eventually.be.true; });
+    it('WHEN the stick button has been clicked (if there is no winner yet)', () => { if (!results.playerHasWon) return clickButton(driver, 'stick_button').should.eventually.be.true; });
     it('  AND selenium gets values from the page for verfication', async () => {
       await setPlayerHasStuck();
       await setGameScoreVariables(driver);
