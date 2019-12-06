@@ -1,6 +1,73 @@
-#deal_button, #twist_button, #stick_button, #players_header, #dealers_header  {
+#players_header, #dealers_header  {
   visibility: hidden;
 }
 
 
+body {
+  background-color: rgb(21, 190, 21);
+  margin: 0;
+}
 
+body > div {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+#logo {
+  color: white;
+  width: 100%;
+  background-color: black;
+  margin: 0;
+}
+
+#logo:after{
+  content: ' - Mobile first'
+}
+
+@media screen and (min-width: 768px){
+  #logo {
+    background-color: blue;
+    font-size: 1.5em;
+  }
+
+  #logo:after{
+    content: ' - Tablet'
+  }
+}
+
+@media screen and (min-width: 900px){
+  #logo {
+    background-color: red;
+    font-size: 1.5em;
+  }
+
+  #logo:after{
+    content: ' - Desktop'
+  }
+}
+
+#header {
+  color: black;
+  font-size: 0.75em;
+}
+
+#content {
+  background-color: rgba(0,0,0,.5);
+  height: 50%;
+}
+
+#footer {
+  width: 91.5%;
+  min-height: 25%;
+  max-height: 25%;
+
+}
+
+#footer div{
+  background-color: rgba(0,0,0,.5);
+  height: 25%;
+  width: 21%;
+  display: inline-block;
+}

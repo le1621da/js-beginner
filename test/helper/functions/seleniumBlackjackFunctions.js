@@ -2,7 +2,7 @@
 
 const {
   canFindElement, cannotFindElement, elementIsVisible, elementIsNotVisible,
-  elementTextValueIs, elementTextValueIsNot,
+  elementTextValueIs, elementTextValueIsNot, elementIsEnabled, elementIsDisabled,
 } = require('./seleniumCommonFunctions.js');
 
 
@@ -94,7 +94,7 @@ function checkArrayValuesAreAllTrue(array) {
   return true;
 }
 
-// State 01 = Launch page state
+// State 00 = Launch page state
 async function getState00(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
@@ -113,15 +113,15 @@ async function getState00(driver) {
     canFindElement(driver, 'new_game_button'),
     cannotFindElement(driver, 'negative_test_button'),
 
-    // Assert whether elements are visible
+    // // Assert whether elements are visible
     elementIsVisible(driver, 'page_title'),
     elementIsVisible(driver, 'welcome_text'),
     elementIsNotVisible(driver, 'players_header'),
     elementIsVisible(driver, 'players_hand'),
     elementIsVisible(driver, 'players_score'),
-    elementIsNotVisible(driver, 'deal_button'),
-    elementIsNotVisible(driver, 'stick_button'),
-    elementIsNotVisible(driver, 'twist_button'),
+    elementIsVisible(driver, 'deal_button'),
+    elementIsVisible(driver, 'stick_button'),
+    elementIsVisible(driver, 'twist_button'),
     elementIsNotVisible(driver, 'dealers_header'),
     elementIsVisible(driver, 'dealers_hand'),
     elementIsVisible(driver, 'dealers_score'),
@@ -129,7 +129,7 @@ async function getState00(driver) {
     elementIsVisible(driver, 'new_game_button'),
     elementIsNotVisible(driver, 'negative_test_button'),
 
-    // Assert the text values of relevant fields
+    // // Assert the text values of relevant fields
     elementTextValueIs(driver, 'page_title', 'Blackjack!'),
     elementTextValueIs(driver, 'welcome_text', 'Welcome to Blackjack!'),
     elementTextValueIs(driver, 'players_header', ''),
@@ -140,10 +140,19 @@ async function getState00(driver) {
     elementTextValueIs(driver, 'dealers_score', ''),
     elementTextValueIs(driver, 'results_area', ''),
     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
+
+    // Assert whether buttons are enabled
+    elementIsEnabled(driver, 'new_game_button'),
+    elementIsDisabled(driver, 'deal_button'),
+    elementIsDisabled(driver, 'twist_button'),
+    elementIsDisabled(driver, 'stick_button'),
   ])
 
     .then(
       (result) => result,
+      // (result) => {
+      //   console.log(result);
+      // },
     );
   return myPromises;
 }
@@ -175,13 +184,13 @@ async function getState01(driver) {
     elementIsVisible(driver, 'players_hand'),
     elementIsVisible(driver, 'players_score'),
     elementIsVisible(driver, 'deal_button'),
-    elementIsNotVisible(driver, 'stick_button'),
-    elementIsNotVisible(driver, 'twist_button'),
+    elementIsVisible(driver, 'stick_button'),
+    elementIsVisible(driver, 'twist_button'),
     elementIsNotVisible(driver, 'dealers_header'),
     elementIsVisible(driver, 'dealers_hand'),
     elementIsVisible(driver, 'dealers_score'),
     elementIsVisible(driver, 'results_area'),
-    elementIsNotVisible(driver, 'new_game_button'),
+    elementIsVisible(driver, 'new_game_button'),
     elementIsNotVisible(driver, 'negative_test_button'),
 
     // Assert the text values of relevant fields
@@ -195,6 +204,13 @@ async function getState01(driver) {
     elementTextValueIs(driver, 'dealers_score', ''),
     elementTextValueIs(driver, 'results_area', ''),
     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
+
+    // Assert whether buttons are enabled
+    elementIsDisabled(driver, 'new_game_button'),
+    elementIsEnabled(driver, 'deal_button'),
+    elementIsDisabled(driver, 'twist_button'),
+    elementIsDisabled(driver, 'stick_button'),
+
   ])
 
     .then(
@@ -228,14 +244,14 @@ async function getState02(driver) {
     elementIsVisible(driver, 'players_header'),
     elementIsVisible(driver, 'players_hand'),
     elementIsVisible(driver, 'players_score'),
-    elementIsNotVisible(driver, 'deal_button'),
+    elementIsVisible(driver, 'deal_button'),
     elementIsVisible(driver, 'stick_button'),
     elementIsVisible(driver, 'twist_button'),
     elementIsVisible(driver, 'dealers_header'),
     elementIsVisible(driver, 'dealers_hand'),
     elementIsVisible(driver, 'dealers_score'),
     elementIsVisible(driver, 'results_area'),
-    elementIsNotVisible(driver, 'new_game_button'),
+    elementIsVisible(driver, 'new_game_button'),
     elementIsNotVisible(driver, 'negative_test_button'),
 
     // Assert the text values of relevant fields
@@ -249,6 +265,13 @@ async function getState02(driver) {
     elementTextValueIsNot(driver, 'dealers_score', ''),
     elementTextValueIs(driver, 'results_area', ''),
     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
+
+    // Assert whether buttons are enabled
+    elementIsDisabled(driver, 'new_game_button'),
+    elementIsDisabled(driver, 'deal_button'),
+    elementIsEnabled(driver, 'twist_button'),
+    elementIsEnabled(driver, 'stick_button'),
+
   ])
 
     .then(
@@ -283,9 +306,9 @@ async function getState03(driver) {
     elementIsVisible(driver, 'players_header'),
     elementIsVisible(driver, 'players_hand'),
     elementIsVisible(driver, 'players_score'),
-    elementIsNotVisible(driver, 'deal_button'),
-    elementIsNotVisible(driver, 'stick_button'),
-    elementIsNotVisible(driver, 'twist_button'),
+    elementIsVisible(driver, 'deal_button'),
+    elementIsVisible(driver, 'stick_button'),
+    elementIsVisible(driver, 'twist_button'),
     elementIsVisible(driver, 'dealers_header'),
     elementIsVisible(driver, 'dealers_hand'),
     elementIsVisible(driver, 'dealers_score'),
@@ -304,6 +327,13 @@ async function getState03(driver) {
     elementTextValueIsNot(driver, 'dealers_score', ''),
     elementTextValueIsNot(driver, 'results_area', ''),
     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
+
+    // Assert whether buttons are enabled
+    elementIsEnabled(driver, 'new_game_button'),
+    elementIsDisabled(driver, 'deal_button'),
+    elementIsDisabled(driver, 'twist_button'),
+    elementIsDisabled(driver, 'stick_button'),
+
   ])
 
     .then(
@@ -337,9 +367,9 @@ async function getState04(driver) {
     elementIsVisible(driver, 'players_header'),
     elementIsVisible(driver, 'players_hand'),
     elementIsVisible(driver, 'players_score'),
-    elementIsNotVisible(driver, 'deal_button'),
-    elementIsNotVisible(driver, 'stick_button'),
-    elementIsNotVisible(driver, 'twist_button'),
+    elementIsVisible(driver, 'deal_button'),
+    elementIsVisible(driver, 'stick_button'),
+    elementIsVisible(driver, 'twist_button'),
     elementIsVisible(driver, 'dealers_header'),
     elementIsVisible(driver, 'dealers_hand'),
     elementIsVisible(driver, 'dealers_score'),
@@ -358,6 +388,13 @@ async function getState04(driver) {
     elementTextValueIs(driver, 'dealers_score', ''),
     elementTextValueIs(driver, 'results_area', ''),
     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
+
+    // Assert whether buttons are enabled
+    elementIsEnabled(driver, 'new_game_button'),
+    elementIsDisabled(driver, 'deal_button'),
+    elementIsDisabled(driver, 'twist_button'),
+    elementIsDisabled(driver, 'stick_button'),
+
   ])
 
     .then(

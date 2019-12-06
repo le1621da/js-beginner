@@ -6,9 +6,7 @@
 // eslint-disable-next-line no-undef
 requirejs(['../data/cardsData', '../functions/deck', '../functions/blackjackScoring'], () => {});
 
-
 // DOM variables
-// const title = document.getElementById('page_title');
 const welcomeText = document.getElementById('welcome_text');
 const playersHeader = document.getElementById('players_header');
 const playersHand = document.getElementById('players_hand');
@@ -24,34 +22,26 @@ const stickButton = document.getElementById('stick_button');
 
 
 // Game variables
-// let isGameStarted = false;
 let isGameOver = false;
-// let hasPlayerWon = false;
 let dealersCards = [];
 let playersCards = [];
 let dealerScore = 0;
 let playerScore = 0;
-// let playersHandAndScoreString = '';
-// let dealersHandAndScoreString = '';
 let playingCards = [];
 let deck = [];
-
 
 function setInGameState() {
   playersHeader.style.visibility = 'visible';
   dealersHeader.style.visibility = 'visible';
-  dealButton.style.visibility = 'hidden';
-  twistButton.style.visibility = 'visible';
-  stickButton.style.visibility = 'visible';
-  twistButton.style.display = 'inline';
-  twistButton.style.display = 'inline';
+  dealButton.disabled = true;
+  stickButton.disabled = false;
+  twistButton.disabled = false;
 }
 
-
 function setEndGameState() {
-  newGameButton.style.visibility = 'visible';
-  twistButton.style.visibility = 'hidden';
-  stickButton.style.visibility = 'hidden';
+  newGameButton.disabled = false;
+  stickButton.disabled = true;
+  twistButton.disabled = true;
 }
 
 function outputPlayersScore() {
@@ -59,12 +49,10 @@ function outputPlayersScore() {
   playersScore.innerText = `(Score ${playerScore})`;
 }
 
-
 function outputDealersScore() {
   dealersHand.innerText = getHandString(dealersCards);
   dealersScore.innerText = `(Score ${dealerScore})`;
 }
-
 
 function checkGameStatus(playerHasFinished) {
   playerScore = getScore(playersCards);
@@ -102,8 +90,10 @@ function setNewGameState() {
   dealersHand.innerText = '';
   dealersScore.innerText = '';
 
-  newGameButton.style.visibility = 'hidden';
-  dealButton.style.visibility = 'visible';
+  newGameButton.disabled = true;
+  dealButton.disabled = false;
+  stickButton.disabled = true;
+  twistButton.disabled = true;
 
   resultsArea.innerText = '';
 
@@ -111,15 +101,11 @@ function setNewGameState() {
 }
 
 function resetGameVariables() {
-  // isGameStarted = false;
   isGameOver = false;
-  // hasPlayerWon = false;
   dealersCards = [];
   playersCards = [];
   dealerScore = 0;
   playerScore = 0;
-  // playersHandAndScoreString = '';
-  // deck = [];
   playingCards = [];
 }
 
@@ -128,9 +114,7 @@ newGameButton.addEventListener('click', () => {
   if (isGameOver) resetGameVariables();
 
   // Set game variables
-  // isGameStarted = true;
   isGameOver = false;
-  // hasPlayerWon = false;
 
   // Amend the html
   setNewGameState();
