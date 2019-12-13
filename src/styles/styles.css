@@ -2,6 +2,19 @@
   visibility: hidden;
 }
 
+button {
+  height: 50px;
+  width: 75px;
+  text-align: center;
+  background-color: silver;
+}
+
+#stick_button {
+  margin-left: 3.1em;
+}
+#twist_button {
+  margin-left: 6.2em;
+}
 
 body {
   background-color: rgb(21, 190, 21);
@@ -9,10 +22,9 @@ body {
 }
 
 body > div {
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 1em;
 }
 
 #logo {
@@ -54,20 +66,17 @@ body > div {
 }
 
 #content {
-  background-color: rgba(0,0,0,.5);
-  height: 50%;
+  background-color: rgb(21, 190, 21);
+  min-height: 360px;
+  max-height: 360px;
 }
 
 #footer {
-  width: 91.5%;
-  min-height: 25%;
-  max-height: 25%;
-
+  background-color: rgb(21, 190, 21);
+  margin-bottom: 0;
 }
 
 #footer div{
-  background-color: rgba(0,0,0,.5);
-  height: 25%;
-  width: 21%;
+  width: 23%;
   display: inline-block;
 }

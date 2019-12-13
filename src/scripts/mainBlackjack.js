@@ -7,7 +7,7 @@
 requirejs(['../data/cardsData', '../functions/deck', '../functions/blackjackScoring'], () => {});
 
 // DOM variables
-const welcomeText = document.getElementById('welcome_text');
+// const welcomeText = document.getElementById('welcome_text');
 const playersHeader = document.getElementById('players_header');
 const playersHand = document.getElementById('players_hand');
 const playersScore = document.getElementById('players_score');
@@ -15,13 +15,14 @@ const dealersHeader = document.getElementById('dealers_header');
 const dealersHand = document.getElementById('dealers_hand');
 const dealersScore = document.getElementById('dealers_score');
 const resultsArea = document.getElementById('results_area');
-const newGameButton = document.getElementById('new_game_button');
+// const newGameButton = document.getElementById('new_game_button');
 const dealButton = document.getElementById('deal_button');
 const twistButton = document.getElementById('twist_button');
 const stickButton = document.getElementById('stick_button');
 
 
 // Game variables
+let isNewGame = true;
 let isGameOver = false;
 let dealersCards = [];
 let playersCards = [];
@@ -30,29 +31,36 @@ let playerScore = 0;
 let playingCards = [];
 let deck = [];
 
+
 function setInGameState() {
   playersHeader.style.visibility = 'visible';
   dealersHeader.style.visibility = 'visible';
   dealButton.disabled = true;
   stickButton.disabled = false;
   twistButton.disabled = false;
+
+  console.log('Test');
 }
 
+
 function setEndGameState() {
-  newGameButton.disabled = false;
+  dealButton.disabled = false;
   stickButton.disabled = true;
   twistButton.disabled = true;
 }
+
 
 function outputPlayersScore() {
   playersHand.innerText = getHandString(playersCards);
   playersScore.innerText = `(Score ${playerScore})`;
 }
 
+
 function outputDealersScore() {
   dealersHand.innerText = getHandString(dealersCards);
   dealersScore.innerText = `(Score ${dealerScore})`;
 }
+
 
 function checkGameStatus(playerHasFinished) {
   playerScore = getScore(playersCards);
@@ -68,37 +76,41 @@ function checkGameStatus(playerHasFinished) {
   return status.winner;
 }
 
+
 function setDeck() {
   if (deck.length === 0) {
     deck = buildAndShuffleADeckOfCards(playingCards);
   }
 }
 
+
 function setDeckAndDealRandomCard(dealerOrPlayersCards) {
   setDeck();
   dealRandomCard(dealerOrPlayersCards, deck, playingCards);
 }
 
-function setNewGameState() {
-  welcomeText.innerText = '';
 
-  playersHeader.style.visibility = 'hidden';
+function setNewGameState() {
+  // welcomeText.innerText = '';
+
+  // playersHeader.style.visibility = 'hidden';
   playersHand.innerText = '';
   playersScore.innerText = '';
 
-  dealersHeader.style.visibility = 'hidden';
+  // dealersHeader.style.visibility = 'hidden';
   dealersHand.innerText = '';
   dealersScore.innerText = '';
 
-  newGameButton.disabled = true;
-  dealButton.disabled = false;
-  stickButton.disabled = true;
-  twistButton.disabled = true;
+  // newGameButton.disabled = true;
+  // dealButton.disabled = false;
+  // stickButton.disabled = true;
+  // twistButton.disabled = true;
 
   resultsArea.innerText = '';
 
   playingCards = getPlayingCards();
 }
+
 
 function resetGameVariables() {
   isGameOver = false;
@@ -109,21 +121,32 @@ function resetGameVariables() {
   playingCards = [];
 }
 
+
 // Start a new game... look out for a click and then execute the function
-newGameButton.addEventListener('click', () => {
-  if (isGameOver) resetGameVariables();
+// newGameButton.addEventListener('click', () => {
+//   if (isGameOver) resetGameVariables();
 
-  // Set game variables
-  isGameOver = false;
+//   // Set game variables
+//   isGameOver = false;
 
-  // Amend the html
-  setNewGameState();
-});
+//   // Amend the html
+
+// });
 
 
 // Player triggers 'deal'
 dealButton.addEventListener('click', () => {
-  // Amend the html
+  if (isNewGame) {
+    setNewGameState();
+    isNewGame = false;
+  }
+
+  if (isGameOver) {
+    resetGameVariables();
+    isGameOver = false;
+  }
+
+  setNewGameState();
   setInGameState();
 
   // Deal
@@ -152,6 +175,7 @@ twistButton.addEventListener('click', () => {
 
 // Dealer plays
 stickButton.addEventListener('click', () => {
+  console.log('Test');
   let status = '';
 
   // Dealer plays until there's a winner...
