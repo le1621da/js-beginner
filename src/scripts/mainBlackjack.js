@@ -6,10 +6,8 @@
 // eslint-disable-next-line no-undef
 requirejs(['../data/cardsData', '../functions/deck', '../functions/blackjackScoring'], () => {});
 
-
 // DOM variables
-// const title = document.getElementById('page_title');
-const welcomeText = document.getElementById('welcome_text');
+// const welcomeText = document.getElementById('welcome_text');
 const playersHeader = document.getElementById('players_header');
 const playersHand = document.getElementById('players_hand');
 const playersScore = document.getElementById('players_score');
@@ -17,22 +15,19 @@ const dealersHeader = document.getElementById('dealers_header');
 const dealersHand = document.getElementById('dealers_hand');
 const dealersScore = document.getElementById('dealers_score');
 const resultsArea = document.getElementById('results_area');
-const newGameButton = document.getElementById('new_game_button');
+// const newGameButton = document.getElementById('new_game_button');
 const dealButton = document.getElementById('deal_button');
 const twistButton = document.getElementById('twist_button');
 const stickButton = document.getElementById('stick_button');
 
 
 // Game variables
-// let isGameStarted = false;
+let isNewGame = true;
 let isGameOver = false;
-// let hasPlayerWon = false;
 let dealersCards = [];
 let playersCards = [];
 let dealerScore = 0;
 let playerScore = 0;
-// let playersHandAndScoreString = '';
-// let dealersHandAndScoreString = '';
 let playingCards = [];
 let deck = [];
 
@@ -40,19 +35,18 @@ let deck = [];
 function setInGameState() {
   playersHeader.style.visibility = 'visible';
   dealersHeader.style.visibility = 'visible';
-  dealButton.style.visibility = 'hidden';
-  twistButton.style.visibility = 'visible';
-  stickButton.style.visibility = 'visible';
-  twistButton.style.display = 'inline';
-  twistButton.style.display = 'inline';
+  dealButton.disabled = true;
+  stickButton.disabled = false;
+  twistButton.disabled = false;
 }
 
 
 function setEndGameState() {
-  newGameButton.style.visibility = 'visible';
-  twistButton.style.visibility = 'hidden';
-  stickButton.style.visibility = 'hidden';
+  dealButton.disabled = false;
+  stickButton.disabled = true;
+  twistButton.disabled = true;
 }
+
 
 function outputPlayersScore() {
   playersHand.innerText = getHandString(playersCards);
@@ -80,66 +74,77 @@ function checkGameStatus(playerHasFinished) {
   return status.winner;
 }
 
+
 function setDeck() {
   if (deck.length === 0) {
     deck = buildAndShuffleADeckOfCards(playingCards);
   }
 }
 
+
 function setDeckAndDealRandomCard(dealerOrPlayersCards) {
   setDeck();
   dealRandomCard(dealerOrPlayersCards, deck, playingCards);
 }
 
-function setNewGameState() {
-  welcomeText.innerText = '';
 
-  playersHeader.style.visibility = 'hidden';
+function setNewGameState() {
+  // welcomeText.innerText = '';
+
+  // playersHeader.style.visibility = 'hidden';
   playersHand.innerText = '';
   playersScore.innerText = '';
 
-  dealersHeader.style.visibility = 'hidden';
+  // dealersHeader.style.visibility = 'hidden';
   dealersHand.innerText = '';
   dealersScore.innerText = '';
 
-  newGameButton.style.visibility = 'hidden';
-  dealButton.style.visibility = 'visible';
+  // newGameButton.disabled = true;
+  // dealButton.disabled = false;
+  // stickButton.disabled = true;
+  // twistButton.disabled = true;
 
   resultsArea.innerText = '';
 
   playingCards = getPlayingCards();
 }
 
+
 function resetGameVariables() {
-  // isGameStarted = false;
   isGameOver = false;
-  // hasPlayerWon = false;
   dealersCards = [];
   playersCards = [];
   dealerScore = 0;
   playerScore = 0;
-  // playersHandAndScoreString = '';
-  // deck = [];
   playingCards = [];
 }
 
+
 // Start a new game... look out for a click and then execute the function
-newGameButton.addEventListener('click', () => {
-  if (isGameOver) resetGameVariables();
+// newGameButton.addEventListener('click', () => {
+//   if (isGameOver) resetGameVariables();
 
-  // Set game variables
-  // isGameStarted = true;
-  isGameOver = false;
-  // hasPlayerWon = false;
+//   // Set game variables
+//   isGameOver = false;
 
-  // Amend the html
-  setNewGameState();
-});
+//   // Amend the html
+
+// });
 
 
 // Player triggers 'deal'
 dealButton.addEventListener('click', () => {
-  // Amend the html
+  if (isNewGame) {
+    setNewGameState();
+    isNewGame = false;
+  }
+
+  if (isGameOver) {
+    resetGameVariables();
+    isGameOver = false;
+  }
+
+  setNewGameState();
   setInGameState();
 
   // Deal

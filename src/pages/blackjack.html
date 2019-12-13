@@ -2,35 +2,41 @@
 <html>
 
   <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,userscalable=0"/>
     <title>Blackjack 2.2</title>
     <link rel="stylesheet" type="text/css" href="../styles/styles.css">
-    <script data-main="../scripts/mainBlackjack.js" src="../scripts/require.js"></script>
-
   </head>
 
   <body>
-    
-    <h1 id="page_title">Blackjack!</h1>
-    <br>
-    
-    <h3 id="welcome_text">Welcome to Blackjack!</h3>
-    
-    <h4 id="players_header">Player has:</h4>
-    <p id="players_hand"></p>
-    <p id="players_score"></p>
-    
-    <button id="deal_button">Deal</button>
-    <div>
-      <button id="stick_button">Stick</button>
-      <button id="twist_button">Twist</button>
+
+    <div id="logo">
+      <div>LiiRx Cards</div>
     </div>
     
-    <h4 id="dealers_header">Dealer has:</h4>
-    <p id="dealers_hand"></p>
-    <p id="dealers_score"></p>
-    <h2 id="results_area"></h2>
+    <div id="header">
+      <h1 id="page_title">Blackjack!</h1>
+    </div>
     
-    <button id="new_game_button">New Game</button>
+    <div id="content">
+      <div>
+        <h4 id="players_header">Player has:</h4>
+        <p id="players_hand"></p>
+        <p id="players_score"></p>
+      </div>
+
+      <div>
+        <h4 id="dealers_header">Dealer has:</h4>
+        <p id="dealers_hand"></p>
+        <p id="dealers_score"></p>
+        <h2 id="results_area"></h2>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div><button id="deal_button">Deal</button></div>
+      <div><button id="stick_button" disabled>Stick</button></div>
+      <div><button id="twist_button" disabled>Twist</button></div>
+    </div>
     
     <br><br>
     

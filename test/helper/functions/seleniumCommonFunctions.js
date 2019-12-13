@@ -27,7 +27,6 @@ function canFindElement(driver, elementId) {
   return myPromise;
 }
 
-
 function cannotFindElement(driver, elementId) {
   const myPromise = driver.findElement({ id: elementId })
     .then(
@@ -37,6 +36,24 @@ function cannotFindElement(driver, elementId) {
   return myPromise;
 }
 
+function elementIsEnabled(driver, elementId) {
+  const myPromise = driver.findElement({ id: elementId }).isEnabled()
+    .then(
+      (result) => result,
+      (error) => false,
+    );
+
+  return myPromise;
+}
+
+function elementIsDisabled(driver, elementId) {
+  const myPromise = driver.findElement({ id: elementId }).isEnabled()
+    .then(
+      (result) => !result,
+      (error) => true,
+    );
+  return myPromise;
+}
 
 function elementIsVisible(driver, elementId) {
   const myPromise = driver.findElement({ id: elementId }).getCssValue('visibility')
@@ -47,7 +64,6 @@ function elementIsVisible(driver, elementId) {
   return myPromise;
 }
 
-
 function elementIsNotVisible(driver, elementId) {
   const myPromise = driver.findElement({ id: elementId }).getCssValue('visibility')
     .then(
@@ -56,7 +72,6 @@ function elementIsNotVisible(driver, elementId) {
     );
   return myPromise;
 }
-
 
 function elementTextValueIs(driver, elementId, expectedText) {
   const myPromise = driver.findElement({ id: elementId }).getText()
@@ -67,7 +82,6 @@ function elementTextValueIs(driver, elementId, expectedText) {
   return myPromise;
 }
 
-
 function elementTextValueIsNot(driver, elementId, expectedText) {
   const myPromise = driver.findElement({ id: elementId }).getText()
     .then(
@@ -76,7 +90,6 @@ function elementTextValueIsNot(driver, elementId, expectedText) {
     );
   return myPromise;
 }
-
 
 function getElementVisibility(driver, elementId) {
   const myPromise = driver.findElement({ id: elementId }).getCssValue('visibility')
@@ -87,7 +100,6 @@ function getElementVisibility(driver, elementId) {
   return myPromise;
 }
 
-
 function getElementText(driver, elementId) {
   const myPromise = driver.findElement({ id: elementId }).getText()
     .then(
@@ -96,15 +108,6 @@ function getElementText(driver, elementId) {
     );
   return myPromise;
 }
-
-// function clickButton(driver, elementId) {
-//   const myPromise = driver.findElement({ id: elementId }).click()
-//     .then(
-//       (result) => result,
-//       (error) => error,
-//     );
-//   return myPromise;
-// }
 
 function clickButton(driver, elementId) {
   const myPromise = driver.findElement({ id: elementId }).click()
@@ -133,4 +136,6 @@ module.exports = {
   getElementVisibility,
   getElementText,
   clickButton,
+  elementIsEnabled,
+  elementIsDisabled,
 };

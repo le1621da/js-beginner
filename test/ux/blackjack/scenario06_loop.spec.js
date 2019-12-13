@@ -35,6 +35,7 @@ const {
 let states = [];
 let results;
 let playerHasStuck = false;
+const iterations = 2;
 
 async function setPlayerHasStuck() {
   playerHasStuck = true;
@@ -56,7 +57,7 @@ describe('FEATURE: Blackjack', () => {
     it('  AND the new game button has been clicked', () => clickButton(driver, 'new_game_button'));
   });
 
-  for (let i = 1; i < 100; i += 1) {
+  for (let i = 1; i < iterations; i += 1) {
     describe(`ITERATION ${i}`, () => {
       it('  AND the deal button has been clicked', () => clickButton(driver, 'deal_button').should.eventually.be.true);
       it('  AND selenium gets values from the page', async () => {
