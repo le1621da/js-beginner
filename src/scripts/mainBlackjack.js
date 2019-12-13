@@ -38,8 +38,6 @@ function setInGameState() {
   dealButton.disabled = true;
   stickButton.disabled = false;
   twistButton.disabled = false;
-
-  console.log('Test');
 }
 
 
@@ -175,7 +173,6 @@ twistButton.addEventListener('click', () => {
 
 // Dealer plays
 stickButton.addEventListener('click', () => {
-  console.log('Test');
   let status = '';
 
   // Dealer plays until there's a winner...
