@@ -4,17 +4,11 @@
 
 button {
   height: 50px;
-  width: 75px;
+  width: 70px;
   text-align: center;
   background-color: silver;
 }
 
-#stick_button {
-  margin-left: 3.1em;
-}
-#twist_button {
-  margin-left: 6.2em;
-}
 
 body {
   background-color: rgb(21, 190, 21);
@@ -34,18 +28,10 @@ body > div {
   margin: 0;
 }
 
-#logo:after{
-  content: ' - Mobile first'
-}
-
 @media screen and (min-width: 768px){
   #logo {
     background-color: blue;
     font-size: 1.5em;
-  }
-
-  #logo:after{
-    content: ' - Tablet'
   }
 }
 
@@ -53,10 +39,6 @@ body > div {
   #logo {
     background-color: red;
     font-size: 1.5em;
-  }
-
-  #logo:after{
-    content: ' - Desktop'
   }
 }
 
@@ -66,17 +48,16 @@ body > div {
 }
 
 #content {
-  background-color: rgb(21, 190, 21);
   min-height: 360px;
   max-height: 360px;
 }
 
 #footer {
-  background-color: rgb(21, 190, 21);
+  margin-left: 10%;
   margin-bottom: 0;
 }
 
 #footer div{
-  width: 23%;
+  width: 31%;
   display: inline-block;
 }
