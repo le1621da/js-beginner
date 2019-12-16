@@ -48,7 +48,6 @@ describe('FEATURE: Blackjack', () => {
 
   describe('SCENARIO 05: Stick', () => {
     it('GIVEN the blackjack page is loaded', () => loadPage(driver, blackjackLandingPage));
-    it('  AND the new game button has been clicked', () => clickButton(driver, 'new_game_button'));
     it('  AND the deal button has been clicked', () => clickButton(driver, 'deal_button').should.eventually.be.true);
     it('  AND selenium gets values from the page', async () => {
       await setGameScoreVariables(driver);
@@ -68,7 +67,6 @@ describe('FEATURE: Blackjack', () => {
     });
 
     it('THEN the page is NOT in State 0', () => { checkArrayValuesAreAllTrue(states[0]).should.be.false; });
-    it('  AND the page is NOT in State 1', () => { checkArrayValuesAreAllTrue(states[1]).should.be.false; });
     it('  AND the page is NOT in State 2', () => { checkArrayValuesAreAllTrue(states[2]).should.be.false; });
     it('  AND the page is in State 3', () => { checkArrayValuesAreAllTrue(states[3]).should.be.true; });
     it('  AND the page is NOT in State 4', () => { checkArrayValuesAreAllTrue(states[4]).should.be.false; });

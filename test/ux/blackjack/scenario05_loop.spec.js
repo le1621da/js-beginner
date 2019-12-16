@@ -16,8 +16,6 @@ const driver = new webdriver.Builder().forBrowser('chrome').build();
 // import and initialise Selenium helpers
 const {
   blackjackLandingPage,
-  checkArrayValuesAreAllTrue,
-  getPageStates,
   getResults,
   setGameStateVariables,
   setGameScoreVariables,
@@ -32,10 +30,9 @@ const {
 } = require('../../helper/functions/seleniumCommonFunctions.js');
 
 // local variables
-let states = [];
 let results;
 let playerHasStuck = false;
-const iterations = 2;
+const ITERATIONS = 2;
 
 async function setPlayerHasStuck() {
   playerHasStuck = true;
@@ -54,10 +51,9 @@ describe('FEATURE: Blackjack', () => {
 
   describe('SCENARIO 06: Loop', () => {
     it('GIVEN the blackjack page is loaded', () => loadPage(driver, blackjackLandingPage));
-    it('  AND the new game button has been clicked', () => clickButton(driver, 'new_game_button'));
   });
 
-  for (let i = 1; i < iterations; i += 1) {
+  for (let i = 1; i < ITERATIONS; i += 1) {
     describe(`ITERATION ${i}`, () => {
       it('  AND the deal button has been clicked', () => clickButton(driver, 'deal_button').should.eventually.be.true);
       it('  AND selenium gets values from the page', async () => {
@@ -71,21 +67,13 @@ describe('FEATURE: Blackjack', () => {
       it('  AND selenium gets values from the page for verfication', async () => {
         await setPlayerHasStuck();
         await setGameScoreVariables(driver);
-        await setGameStateVariables(driver);
         await setWinner(playerHasStuck);
-        states = getPageStates(driver);
         results = getResults();
       });
 
       it('  AND if the player has won THEN the player is declared the winner', () => { if (results.playerHasWon) return getElementText(driver, 'results_area').should.eventually.equal('WINNER: Player.'); });
       it('  BUT if the dealer has won THEN the dealer is declared the winner', () => { if (results.dealerHasWon) return getElementText(driver, 'results_area').should.eventually.equal('WINNER: Dealer.'); });
 
-      it('AND WHEN the new game button has been clicked', () => clickButton(driver, 'new_game_button'));
-      it('  AND selenium gets values from the page for verfication', async () => {
-        await setGameStateVariables(driver);
-        states = getPageStates(driver);
-      });
-      it('THEN the page is in State 1', () => { checkArrayValuesAreAllTrue(states[1]).should.be.true; });
       it('  AND the results have been reset', async () => {
         await resetPlayerHasStuck();
         resetResults();

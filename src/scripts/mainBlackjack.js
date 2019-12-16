@@ -31,15 +31,23 @@ let playerScore = 0;
 let playingCards = [];
 let deck = [];
 
-
-function setInGameState() {
+function setNewGameState() {
+  playingCards = getPlayingCards();
   playersHeader.style.visibility = 'visible';
   dealersHeader.style.visibility = 'visible';
+}
+
+function setInGameState() {
+  playersHand.innerText = '';
+  playersScore.innerText = '';
+  dealersHand.innerText = '';
+  dealersScore.innerText = '';
+  resultsArea.innerText = '';
+
   dealButton.disabled = true;
   stickButton.disabled = false;
   twistButton.disabled = false;
 }
-
 
 function setEndGameState() {
   dealButton.disabled = false;
@@ -47,18 +55,24 @@ function setEndGameState() {
   twistButton.disabled = true;
 }
 
+function resetGameVariables() {
+  isGameOver = false;
+  dealersCards = [];
+  playersCards = [];
+  dealerScore = 0;
+  playerScore = 0;
+  // playingCards = [];
+}
 
 function outputPlayersScore() {
   playersHand.innerText = getHandString(playersCards);
   playersScore.innerText = `(Score ${playerScore})`;
 }
 
-
 function outputDealersScore() {
   dealersHand.innerText = getHandString(dealersCards);
   dealersScore.innerText = `(Score ${dealerScore})`;
 }
-
 
 function checkGameStatus(playerHasFinished) {
   playerScore = getScore(playersCards);
@@ -74,63 +88,16 @@ function checkGameStatus(playerHasFinished) {
   return status.winner;
 }
 
-
 function setDeck() {
   if (deck.length === 0) {
     deck = buildAndShuffleADeckOfCards(playingCards);
   }
 }
 
-
 function setDeckAndDealRandomCard(dealerOrPlayersCards) {
   setDeck();
   dealRandomCard(dealerOrPlayersCards, deck, playingCards);
 }
-
-
-function setNewGameState() {
-  // welcomeText.innerText = '';
-
-  // playersHeader.style.visibility = 'hidden';
-  playersHand.innerText = '';
-  playersScore.innerText = '';
-
-  // dealersHeader.style.visibility = 'hidden';
-  dealersHand.innerText = '';
-  dealersScore.innerText = '';
-
-  // newGameButton.disabled = true;
-  // dealButton.disabled = false;
-  // stickButton.disabled = true;
-  // twistButton.disabled = true;
-
-  resultsArea.innerText = '';
-
-  playingCards = getPlayingCards();
-}
-
-
-function resetGameVariables() {
-  isGameOver = false;
-  dealersCards = [];
-  playersCards = [];
-  dealerScore = 0;
-  playerScore = 0;
-  playingCards = [];
-}
-
-
-// Start a new game... look out for a click and then execute the function
-// newGameButton.addEventListener('click', () => {
-//   if (isGameOver) resetGameVariables();
-
-//   // Set game variables
-//   isGameOver = false;
-
-//   // Amend the html
-
-// });
-
 
 // Player triggers 'deal'
 dealButton.addEventListener('click', () => {
@@ -144,7 +111,6 @@ dealButton.addEventListener('click', () => {
     isGameOver = false;
   }
 
-  setNewGameState();
   setInGameState();
 
   // Deal
