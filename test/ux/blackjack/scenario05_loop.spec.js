@@ -16,8 +16,6 @@ const driver = new webdriver.Builder().forBrowser('chrome').build();
 // import and initialise Selenium helpers
 const {
   blackjackLandingPage,
-  checkArrayValuesAreAllTrue,
-  getPageStates,
   getResults,
   setGameStateVariables,
   setGameScoreVariables,
@@ -32,10 +30,9 @@ const {
 } = require('../../helper/functions/seleniumCommonFunctions.js');
 
 // local variables
-let states = [];
 let results;
 let playerHasStuck = false;
-const ITERATIONS = 50;
+const ITERATIONS = 2;
 
 async function setPlayerHasStuck() {
   playerHasStuck = true;
@@ -70,9 +67,7 @@ describe('FEATURE: Blackjack', () => {
       it('  AND selenium gets values from the page for verfication', async () => {
         await setPlayerHasStuck();
         await setGameScoreVariables(driver);
-        await setGameStateVariables(driver);
         await setWinner(playerHasStuck);
-        states = getPageStates(driver);
         results = getResults();
       });
 
