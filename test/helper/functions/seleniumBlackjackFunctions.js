@@ -142,8 +142,12 @@ async function getState00(driver) {
     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
 
     // Assert whether buttons are enabled
+<<<<<<< Updated upstream
     elementIsEnabled(driver, 'new_game_button'),
     elementIsDisabled(driver, 'deal_button'),
+=======
+    elementIsEnabled(driver, 'deal_button'),
+>>>>>>> Stashed changes
     elementIsDisabled(driver, 'twist_button'),
     elementIsDisabled(driver, 'stick_button'),
   ])
@@ -158,6 +162,7 @@ async function getState00(driver) {
 }
 
 
+<<<<<<< Updated upstream
 // State 02 = New Game state
 async function getState01(driver) {
   let myPromises = Promise.all([
@@ -220,6 +225,69 @@ async function getState01(driver) {
 }
 
 // State 03 = Game in-progress state
+=======
+// State 01 = New Game state
+//
+// This state should now be redundant
+//
+// async function getState01(driver) {
+//   let myPromises = Promise.all([
+//     // Assert whether elements are available
+//     canFindElement(driver, 'page_title'),
+//     cannotFindElement(driver, 'welcome_text'),
+//     canFindElement(driver, 'players_header'),
+//     canFindElement(driver, 'players_hand'),
+//     canFindElement(driver, 'players_score'),
+//     canFindElement(driver, 'deal_button'),
+//     canFindElement(driver, 'stick_button'),
+//     canFindElement(driver, 'twist_button'),
+//     canFindElement(driver, 'dealers_header'),
+//     canFindElement(driver, 'dealers_hand'),
+//     canFindElement(driver, 'dealers_score'),
+//     canFindElement(driver, 'results_area'),
+//     cannotFindElement(driver, 'new_game_button'),
+//     cannotFindElement(driver, 'negative_test_button'),
+
+//     // Assert whether elements are visible
+//     elementIsVisible(driver, 'page_title'),
+//     elementIsNotVisible(driver, 'players_header'),
+//     elementIsVisible(driver, 'players_hand'),
+//     elementIsVisible(driver, 'players_score'),
+//     elementIsVisible(driver, 'deal_button'),
+//     elementIsVisible(driver, 'stick_button'),
+//     elementIsVisible(driver, 'twist_button'),
+//     elementIsNotVisible(driver, 'dealers_header'),
+//     elementIsVisible(driver, 'dealers_hand'),
+//     elementIsVisible(driver, 'dealers_score'),
+//     elementIsVisible(driver, 'results_area'),
+//     elementIsVisible(driver, 'new_game_button'),
+//     elementIsNotVisible(driver, 'negative_test_button'),
+
+//     // Assert the text values of relevant fields
+//     elementTextValueIs(driver, 'page_title', 'Blackjack!'),
+//     elementTextValueIs(driver, 'players_header', ''),
+//     elementTextValueIs(driver, 'players_hand', ''),
+//     elementTextValueIs(driver, 'players_score', ''),
+//     elementTextValueIs(driver, 'dealers_header', ''),
+//     elementTextValueIs(driver, 'dealers_hand', ''),
+//     elementTextValueIs(driver, 'dealers_score', ''),
+//     elementTextValueIs(driver, 'results_area', ''),
+//     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
+
+//     // Assert whether buttons are enabled
+//     elementIsEnabled(driver, 'deal_button'),
+//     elementIsDisabled(driver, 'twist_button'),
+//     elementIsDisabled(driver, 'stick_button'),
+//   ])
+
+//     .then(
+//       (result) => result,
+//     );
+//   return myPromises;
+// }
+
+// State 02 = Game in-progress state
+>>>>>>> Stashed changes
 async function getState02(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
@@ -267,7 +335,6 @@ async function getState02(driver) {
     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
 
     // Assert whether buttons are enabled
-    elementIsDisabled(driver, 'new_game_button'),
     elementIsDisabled(driver, 'deal_button'),
     elementIsEnabled(driver, 'twist_button'),
     elementIsEnabled(driver, 'stick_button'),
@@ -281,7 +348,7 @@ async function getState02(driver) {
 }
 
 
-// State 04 = 'End game' state; eg player has hit 'stick' and dealers hand is played
+// State 03 = 'End game' state; eg player has hit 'stick' and dealers hand is played
 async function getState03(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
@@ -329,11 +396,17 @@ async function getState03(driver) {
     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
 
     // Assert whether buttons are enabled
+<<<<<<< Updated upstream
     elementIsEnabled(driver, 'new_game_button'),
     elementIsDisabled(driver, 'deal_button'),
     elementIsDisabled(driver, 'twist_button'),
     elementIsDisabled(driver, 'stick_button'),
 
+=======
+    elementIsEnabled(driver, 'deal_button'),
+    elementIsDisabled(driver, 'twist_button'),
+    elementIsDisabled(driver, 'stick_button'),
+>>>>>>> Stashed changes
   ])
 
     .then(
@@ -342,7 +415,7 @@ async function getState03(driver) {
   return myPromises;
 }
 
-// State 05 = Reset
+// State 04 = Reset
 async function getState04(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
@@ -390,11 +463,17 @@ async function getState04(driver) {
     elementTextValueIsNot(driver, 'page_title', 'Blackjack'),
 
     // Assert whether buttons are enabled
+<<<<<<< Updated upstream
     elementIsEnabled(driver, 'new_game_button'),
     elementIsDisabled(driver, 'deal_button'),
     elementIsDisabled(driver, 'twist_button'),
     elementIsDisabled(driver, 'stick_button'),
 
+=======
+    elementIsEnabled(driver, 'deal_button'),
+    elementIsDisabled(driver, 'twist_button'),
+    elementIsDisabled(driver, 'stick_button'),
+>>>>>>> Stashed changes
   ])
 
     .then(
@@ -406,7 +485,7 @@ async function getState04(driver) {
 // Set game variables
 async function setGameStateVariables(driver) {
   state00 = await getState00(driver);
-  state01 = await getState01(driver);
+  // state01 = await getState01(driver);
   state02 = await getState02(driver);
   state03 = await getState03(driver);
   state04 = await getState04(driver);

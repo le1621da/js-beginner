@@ -36,7 +36,6 @@ describe('FEATURE: Blackjack', () => {
       states = getPageStates();
     });
     it('THEN the page is in State 0', () => { checkArrayValuesAreAllTrue(states[0]).should.be.true; });
-    it('  AND the page is NOT in State 1', () => { checkArrayValuesAreAllTrue(states[1]).should.be.false; });
     it('  AND the page is NOT in State 2', () => { checkArrayValuesAreAllTrue(states[2]).should.be.false; });
     it('  AND the page is NOT in State 3', () => { checkArrayValuesAreAllTrue(states[3]).should.be.false; });
     it('  AND the page is NOT in State 4', () => { checkArrayValuesAreAllTrue(states[4]).should.be.false; });
