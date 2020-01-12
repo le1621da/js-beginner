@@ -9,39 +9,40 @@
 
   <body>
 
-    <div id="logo">
-      <div>LiiRx Cards</div>
-    </div>
- 
-    <div id="top_bar">
-      <div><button id="home_button_01" class="home_button" onclick="window.location.href = '../../index.html'">< Home</button></div>
-      <div id="header" class="page_title"><h3>Blackjack!</h3></div>
-      <div><button id="placeholder_button_01" class="placeholder_button" onclick="window.location.href = '../../index.html'">Placeholder</button></div>
-    </div>
-    
-    <div id="content">
-      <div>
-        <h4 id="players_header">Player has:</h4>
-        <p id="players_hand"></p>
-        <p id="players_score"></p>
-      </div>
-
-      <div>
-        <h4 id="dealers_header">Dealer has:</h4>
-        <p id="dealers_hand"></p>
-        <p id="dealers_score"></p>
-        <h4 id="results_area"></h4>
-      </div>
+    <div class="logo">
+      <div><h5 id="logo01" class="logo_text">LiiRx Cards</h5></div>
     </div>
 
-    <div id="footer">
-      <div><button id="deal_button">Deal</button></div>
-      <div><button id="stick_button" disabled>Stick</button></div>
-      <div><button id="twist_button" disabled>Twist</button></div>
+    <div class="header">
+      <button class="btn--nav" id="home_button-01" onclick="window.location.href = '../../index.html'">Home</button>
+      <div><h4 class="page_title" id="page_title-01">Blackjack!</h4></div>
+      <button class="btn--nav" id="navigation-01">To do</button>
     </div>
     
-    <br><br>
+    <div class="content" id="content-01">
+      <div>
+        <h4 id="players_header" class="players_header">Player has:</h4>
+        <p id="players_hand" class="indent--sml"></p>
+        <p id="players_score" class="indent--sml"></p>
+      </div>
+      <div>
+        <h4 id="dealers_header" class="players_header">Dealer has:</h4>
+        <p id="dealers_hand" class="indent--sml"></p>
+        <p id="dealers_score" class="indent--sml"></p>
+        <h3 id="results_area" class="result"></h3>
+      </div>
+    </div>
     
+    <div class="actions">
+      <button class="btn" id="deal_button">Deal</button>
+      <button class="btn" id="stick_button" disabled>Stick</button>
+      <button class="btn" id="twist_button" disabled>Twist</button>
+    </div>
+    
+    <div class="footer">
+      Footer
+    </div>
+
     <script data-main="../scripts/mainBlackjack.js" src="../scripts/helper/util.js"></script>
   </body>
 
