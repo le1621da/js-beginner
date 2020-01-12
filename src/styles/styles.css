@@ -31,7 +31,7 @@ h3, h4, h5, p {
 
 .content {
   background-color: white;
-  height: 400px;
+  height: 340px;
 }
 
 .actions {
@@ -43,7 +43,7 @@ h3, h4, h5, p {
 }
 
 .btn {
-  height: 50px;
+  height: 35px;
   width: 70px;
   text-align: center;
   background-color: silver;
@@ -72,13 +72,14 @@ h3, h4, h5, p {
   vertical-align: middle;
 }
 
-.players_header {
-  padding-top: 1em;
-  padding-bottom: 1.25em;
+.paragraph-spacing--sml {
+  padding-top: .75em;
+  padding-bottom: .75em;
 }
 
-.result {
-  padding-top: 1.5em;
+.paragraph-spacing--med {
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 .indent--sml {
