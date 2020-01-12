@@ -73,13 +73,11 @@ h3, h4, h5, p {
 }
 
 .paragraph-spacing--sml {
-  padding-top: .75em;
-  padding-bottom: .75em;
+  padding-top: .25em;
 }
 
 .paragraph-spacing--med {
   padding-top: 1em;
-  padding-bottom: 1em;
 }
 
 .indent--sml {
