@@ -55,7 +55,7 @@ describe('FEATURE: Blackjack', () => {
 
   for (let i = 1; i < ITERATIONS; i += 1) {
     describe(`ITERATION ${i}`, () => {
-      it('  AND the deal button has been clicked', () => clickButton(driver, 'deal_button').should.eventually.be.true);
+      it('  AND the deal button has been clicked', () => clickButton(driver, 'deal-button-blackjack').should.eventually.be.true);
       it('  AND selenium gets values from the page', async () => {
         await setGameScoreVariables(driver);
         await setGameStateVariables(driver);
@@ -63,7 +63,7 @@ describe('FEATURE: Blackjack', () => {
         results = getResults();
       });
 
-      it('WHEN the stick button has been clicked (if there is no winner yet)', () => { if (!results.playerHasWon) return clickButton(driver, 'stick_button').should.eventually.be.true; });
+      it('WHEN the stick button has been clicked (if there is no winner yet)', () => { if (!results.playerHasWon) return clickButton(driver, 'stick-button-blackjack').should.eventually.be.true; });
       it('  AND selenium gets values from the page for verfication', async () => {
         await setPlayerHasStuck();
         await setGameScoreVariables(driver);
@@ -71,8 +71,8 @@ describe('FEATURE: Blackjack', () => {
         results = getResults();
       });
 
-      it('  AND if the player has won THEN the player is declared the winner', () => { if (results.playerHasWon) return getElementText(driver, 'results_area').should.eventually.equal('WINNER: Player.'); });
-      it('  BUT if the dealer has won THEN the dealer is declared the winner', () => { if (results.dealerHasWon) return getElementText(driver, 'results_area').should.eventually.equal('WINNER: Dealer.'); });
+      it('  AND if the player has won THEN the player is declared the winner', () => { if (results.playerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Player.'); });
+      it('  BUT if the dealer has won THEN the dealer is declared the winner', () => { if (results.dealerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Dealer.'); });
 
       it('  AND the results have been reset', async () => {
         await resetPlayerHasStuck();

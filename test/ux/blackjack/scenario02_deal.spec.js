@@ -40,7 +40,7 @@ describe('FEATURE: Blackjack', () => {
 
   describe('SCENARIO 03: Deal', () => {
     it('GIVEN the blackjack page is loaded', () => loadPage(driver, blackjackLandingPage));
-    it('WHEN the deal button is clicked', () => clickButton(driver, 'deal_button').should.eventually.be.true);
+    it('WHEN the deal button is clicked', () => clickButton(driver, 'deal-button-blackjack').should.eventually.be.true);
     it('  AND selenium gets values from the page for verfication', async () => {
       await setGameStateVariables(driver);
       states = getPageStates(driver);
@@ -53,10 +53,10 @@ describe('FEATURE: Blackjack', () => {
 
     it("  AND if the player's score is less than 21 THEN the page is in State 2", () => { if (!results.playerHasWon) checkArrayValuesAreAllTrue(states[2]).should.be.true; });
     it("  AND if the player's score is less than 21 THEN the page is NOT in State 3", () => { if (!results.playerHasWon) checkArrayValuesAreAllTrue(states[3]).should.be.false; });
-    it("  AND if the player's score is less than 21 THEN there's no winner declared", () => { if (!results.playerHasWon) return getElementText(driver, 'results_area').should.eventually.equal(''); });
+    it("  AND if the player's score is less than 21 THEN there's no winner declared", () => { if (!results.playerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal(''); });
 
     it("  AND if the player's score equals 21 THEN the page is NOT in State 2", () => { if (results.playerHasWon) checkArrayValuesAreAllTrue(states[2]).should.be.false; });
     it("  AND if the player's score equals 21 THEN the page is in State 3", () => { if (results.playerHasWon) checkArrayValuesAreAllTrue(states[3]).should.be.true; });
-    it("  AND if the player's score equals 21 THEN the player is declared the winner", () => { if (results.playerHasWon) return getElementText(driver, 'results_area').should.eventually.equal('WINNER: Player.'); });
+    it("  AND if the player's score equals 21 THEN the player is declared the winner", () => { if (results.playerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Player.'); });
   });
 });

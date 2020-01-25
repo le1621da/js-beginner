@@ -1,4 +1,4 @@
-#players_header, #dealers_header  {
+#players-header-blackjack, #dealers-header-blackjack  {
   visibility: hidden;
 }
 
@@ -66,20 +66,20 @@ h3, h4, h5, p {
   float: right;
 }
 
-.page_title {
+.page-title {
   display: table-cell;
   height: 30px;
   vertical-align: middle;
 }
 
-.paragraph-spacing--sml {
+.paragraph-spacing--small {
   padding-top: .25em;
 }
 
-.paragraph-spacing--med {
+.paragraph-spacing--medium {
   padding-top: 1em;
 }
 
-.indent--sml {
+.indent--small {
   padding-left: 1.2em;
 }
