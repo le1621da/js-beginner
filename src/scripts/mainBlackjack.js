@@ -8,17 +8,17 @@ requirejs(['../data/cardsData', '../functions/deck', '../functions/blackjackScor
 
 // DOM variables
 // const welcomeText = document.getElementById('welcome_text');
-const playersHeader = document.getElementById('players_header');
-const playersHand = document.getElementById('players_hand');
-const playersScore = document.getElementById('players_score');
-const dealersHeader = document.getElementById('dealers_header');
-const dealersHand = document.getElementById('dealers_hand');
-const dealersScore = document.getElementById('dealers_score');
-const resultsArea = document.getElementById('results_area');
+const playersHeader = document.getElementById('players-header-blackjack');
+const playersHand = document.getElementById('players-hand-blackjack');
+const playersScore = document.getElementById('players-score-blackjack');
+const dealersHeader = document.getElementById('dealers-header-blackjack');
+const dealersHand = document.getElementById('dealers-hand-blackjack');
+const dealersScore = document.getElementById('dealers-score-blackjack');
+const resultsArea = document.getElementById('results-area-blackjack');
 // const newGameButton = document.getElementById('new_game_button');
-const dealButton = document.getElementById('deal_button');
-const twistButton = document.getElementById('twist_button');
-const stickButton = document.getElementById('stick_button');
+const dealButton = document.getElementById('deal-button-blackjack');
+const twistButton = document.getElementById('twist-button-blackjack');
+const stickButton = document.getElementById('stick-button-blackjack');
 
 
 // Game variables
