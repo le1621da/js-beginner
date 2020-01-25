@@ -49,7 +49,7 @@ describe('FEATURE: Blackjack', () => {
     await resetResults();
   });
 
-  describe('SCENARIO 06: Loop', () => {
+  describe('SCENARIO 05: Loop', () => {
     it('GIVEN the blackjack page is loaded', () => loadPage(driver, blackjackLandingPage));
   });
 

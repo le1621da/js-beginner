@@ -10,11 +10,10 @@ const {
 
 // Initialise game variables
 const blackjackLandingPage = 'file:///Users/Lee/workspace/beginner-js/src/pages/blackjack.html';
-let state00;
-let state01;
-let state02;
-let state03;
-let state04;
+let landingPageState;
+let gameInProgressState;
+let endGameState;
+let resetGameState;
 let gameScores;
 let playersScore;
 let dealersScore;
@@ -37,7 +36,7 @@ async function setWinner(playerHasStuck) {
 
 // get results
 function getPageStates() {
-  const states = [state00, state01, state02, state03, state04];
+  const states = [landingPageState, gameInProgressState, endGameState, resetGameState];
   return states;
 }
 
@@ -95,7 +94,7 @@ function checkArrayValuesAreAllTrue(array) {
 }
 
 // State 00 = Launch page state
-async function getState00(driver) {
+async function getLandingPageState(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
     canFindElement(driver, 'page-title-blackjack'),
@@ -154,7 +153,7 @@ async function getState00(driver) {
 }
 
 // State 02 = Game in-progress state
-async function getState02(driver) {
+async function getGameInProgressState(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
     canFindElement(driver, 'page-title-blackjack'),
@@ -212,7 +211,7 @@ async function getState02(driver) {
 
 
 // State 03 = 'End game' state; eg player has hit 'stick' and dealers hand is played
-async function getState03(driver) {
+async function getEndGameState(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
     canFindElement(driver, 'page-title-blackjack'),
@@ -269,7 +268,7 @@ async function getState03(driver) {
 }
 
 // State 04 = Reset
-async function getState04(driver) {
+async function getResetGameState(driver) {
   let myPromises = Promise.all([
     // Assert whether elements are available
     canFindElement(driver, 'page-title-blackjack'),
@@ -326,11 +325,10 @@ async function getState04(driver) {
 
 // Set game variables
 async function setGameStateVariables(driver) {
-  state00 = await getState00(driver);
-  // state01 = await getState01(driver);
-  state02 = await getState02(driver);
-  state03 = await getState03(driver);
-  state04 = await getState04(driver);
+  landingPageState = await getLandingPageState(driver);
+  gameInProgressState = await getGameInProgressState(driver);
+  endGameState = await getEndGameState(driver);
+  resetGameState = await getResetGameState(driver);
 }
 
 

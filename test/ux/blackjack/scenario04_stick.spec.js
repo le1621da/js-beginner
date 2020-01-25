@@ -46,7 +46,7 @@ describe('FEATURE: Blackjack', () => {
     await resetResults();
   });
 
-  describe('SCENARIO 05: Stick', () => {
+  describe('SCENARIO 04: Stick', () => {
     it('GIVEN the blackjack page is loaded', () => loadPage(driver, blackjackLandingPage));
     it('  AND the deal button has been clicked', () => clickButton(driver, 'deal-button-blackjack').should.eventually.be.true);
     it('  AND selenium gets values from the page', async () => {
@@ -66,13 +66,13 @@ describe('FEATURE: Blackjack', () => {
       results = getResults();
     });
 
-    it('THEN the page is NOT in State 0', () => { checkArrayValuesAreAllTrue(states[0]).should.be.false; });
-    it('  AND the page is NOT in State 2', () => { checkArrayValuesAreAllTrue(states[2]).should.be.false; });
-    it('  AND the page is in State 3', () => { checkArrayValuesAreAllTrue(states[3]).should.be.true; });
-    it('  AND the page is NOT in State 4', () => { checkArrayValuesAreAllTrue(states[4]).should.be.false; });
-    it('    AND if the player has won THEN the player is declared the winner', () => { if (results.playerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Player.'); });
-    it('    AND if the dealer has not won THEN the player is declared the winner', () => { if (!results.playerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Dealer.'); });
-    it('      BUT if the dealer has won THEN the dealer is declared the winner', () => { if (results.dealerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Dealer.'); });
-    it('      AND if the player has not won THEN the dealer is declared the winner', () => { if (!results.dealerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Player.'); });
+    it('THEN the page is in the End Game State', () => { checkArrayValuesAreAllTrue(states[2]).should.be.true; });
+    it('  AND the page is NOT in the Landing Page State', () => { checkArrayValuesAreAllTrue(states[0]).should.be.false; });
+    it('  AND the page is NOT in the Game In-Progress State', () => { checkArrayValuesAreAllTrue(states[1]).should.be.false; });
+    it('  AND the page is NOT in the Reset Game State', () => { checkArrayValuesAreAllTrue(states[3]).should.be.false; });
+    it('AND WHEN the player has won THEN the player is declared the winner', () => { if (results.playerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Player.'); });
+    it('AND WHEN the dealer has won THEN the dealer is declared the winner', () => { if (results.dealerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Dealer.'); });
+    it('AND WHEN the player has not won THEN the dealer is declared the winner', () => { if (!results.dealerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Player.'); });
+    it('AND WHEN the dealer has not won THEN the player is declared the winner', () => { if (!results.playerHasWon) return getElementText(driver, 'results-area-blackjack').should.eventually.equal('WINNER: Dealer.'); });
   });
 });
